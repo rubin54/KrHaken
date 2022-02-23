@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Underwater_Pool-Mike_Koenig-355864284.wav-3c172f235ecb6cb1c8eceb0564497511.sample"
+
+[deps]
+
+source_file="res://Audio/SFX für VFX/Underwater_Pool-Mike_Koenig-355864284.wav"
+dest_files=[ "res://.import/Underwater_Pool-Mike_Koenig-355864284.wav-3c172f235ecb6cb1c8eceb0564497511.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

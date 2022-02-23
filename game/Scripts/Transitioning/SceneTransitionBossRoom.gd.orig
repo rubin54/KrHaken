@@ -1,0 +1,13 @@
+extends Area2D
+
+export var scene_path = ""
+
+
+func _on_SceneTransition_body_entered(body):
+<<<<<<< working copy
+	if body.is_in_group("Player") && SoulManager.soulsforPortal >= 300:
+=======
+	if body.is_in_group("Player") && SoulManager.soulsforPortal == 0:
+>>>>>>> merge rev
+		get_tree().change_scene(scene_path)
+	

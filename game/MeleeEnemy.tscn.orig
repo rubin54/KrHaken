@@ -1,0 +1,212 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://src/Enemy/TargetDetector.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Player/SoftCollision.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Player/WanderController.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Player/HurtBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/characters/Monster/Melee/MeleeEnemyAnimations.tres" type="SpriteFrames" id=5]
+[ext_resource path="res://Audio/SFX für VFX/-monster_spawn_kraken_egg_burst.wav" type="AudioStream" id=6]
+[ext_resource path="res://src/Enemy/Components/Hitbox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Main/MeleeEnemy.gd" type="Script" id=8]
+[ext_resource path="res://Audio/Monster/ranged/ranged_enemy_walk_short_.wav" type="AudioStream" id=9]
+[ext_resource path="res://Audio/Monster/Melee/monster_hurt_1.wav" type="AudioStream" id=10]
+[ext_resource path="res://Audio/Monster/monster_destroyed_sound.wav" type="AudioStream" id=11]
+[ext_resource path="res://Audio/Monster/shot_crystalizes_enemy_sound.wav" type="AudioStream" id=12]
+[ext_resource path="res://Audio/Monster/Melee/monster_melee_attack_stomp_with_ganular_dirt_ending.wav" type="AudioStream" id=13]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 15.503
+
+[sub_resource type="Animation" id=2]
+resource_name = "attack"
+length = 0.5
+
+[sub_resource type="Animation" id=3]
+resource_name = "die"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 2.9, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.0196078, 0.294118, 0.87451, 1 ), Color( 1, 1, 1, 1 ), Color( 0.0627451, 0.0588235, 0.552941, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.752941, 0.0196078, 0.0196078, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "die"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Spawnsound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="MeleeEnemy" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+modulate = Color( 0.966527, 0.966387, 0.984034, 1 )
+collision_layer = 16
+collision_mask = 262147
+script = ExtResource( 8 )
+ACCELERATION = 400
+MAX_SPEED = 500
+FRICTION = 2000
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color( 0.0705882, 0.00784314, 0.00784314, 1 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="TargetDetector" parent="." instance=ExtResource( 1 )]
+scale = Vector2( 2.79268, 2.79268 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="WanderController" parent="." instance=ExtResource( 3 )]
+wander_range = 100
+
+[node name="Hitbox" parent="." instance=ExtResource( 7 )]
+position = Vector2( -0.862488, 38.8106 )
+
+[node name="HurtBox" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 4 )]
+collision_mask = 64
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spawn"
+anims/attack = SubResource( 2 )
+anims/die = SubResource( 3 )
+anims/frozen = SubResource( 4 )
+anims/get_hit = SubResource( 5 )
+anims/spawn = SubResource( 6 )
+
+[node name="StateMachine" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="StateMachine"]
+
+[node name="Wander" type="Node" parent="StateMachine/Idle"]
+
+[node name="Chase" type="Node" parent="StateMachine/Idle"]
+
+[node name="Froozen" type="Node" parent="StateMachine/Idle"]
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SoftCollision" parent="." instance=ExtResource( 2 )]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 5 )
+animation = "Monster_idle_down"
+frame = 8
+playing = true
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -10.722
+bus = "SFX"
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -10.722
+bus = "SFX"
+
+[node name="FrozenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -10.722
+bus = "SFX"
+
+[node name="MeleeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -10.0
+bus = "SFX"
+
+[node name="MoveSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+bus = "SFX"
+
+[node name="Spawnsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+bus = "SFX"
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="Hitbox" method="_on_HurtBox_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_FreezeTimer_timeout"]
+
+[editable path="Hitbox"]
+
+[editable path="HurtBox"]
+
+[editable path="SoftCollision"]

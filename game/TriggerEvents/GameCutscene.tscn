@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://BasicMap.tres" type="TileSet" id=1]
+[ext_resource path="res://Shader/Water_shader/water_shader.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Scripts/Cutscenes/CutsceneOfGamescene.gd" type="Script" id=3]
+[ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=4]
+
+
+
+[sub_resource type="Animation" id=1]
+resource_name = "FlyingInCircle"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1045.98, 453.926 ), Vector2( 672.57, 487.224 ), Vector2( 665.435, 772.634 ), Vector2( 965.115, 905.825 ), Vector2( 1474.1, 713.173 ), Vector2( 1526.42, 349.276 ), Vector2( 1045.98, 453.926 ) ]
+}
+
+[sub_resource type="Shader" id=2]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec4 blue_tint : hint_color;
+
+uniform vec2 sprite_scale;
+uniform float scale_x = 0.67;
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(12.9898, 78.233)))* 43758.5453123);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+void fragment(){
+
+	vec2 noisecoord1 = UV * sprite_scale * scale_x;
+	vec2 noisecoord2 = UV * sprite_scale * scale_x + 4.0;
+
+	vec2 motion1 = vec2(TIME * 0.3, TIME * -0.4);
+	vec2 motion2 = vec2(TIME * 0.1, TIME * 0.5);
+
+	vec2 distort1 = vec2(noise(noisecoord1 + motion1), noise(noisecoord2 + motion1)) - vec2(0.5);
+	vec2 distort2 = vec2(noise(noisecoord1 + motion2), noise(noisecoord2 + motion2)) - vec2(0.5);
+
+	vec2 distort_sum = (distort1 + distort2) / 60.0;
+
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV + distort_sum, 0.0);
+
+	color = mix(color, blue_tint, 0.3);
+	color.rgb = mix(vec3(0.5), color.rgb, 1.4);
+
+	float near_top = (UV.y + distort_sum.y) / (0.2 / sprite_scale.y);
+	near_top = clamp(near_top, 0.0, 1.0);
+	near_top = 1.0 - near_top;
+
+	color = mix(color, vec4(1.0), near_top);
+
+	float edge_lower = 0.6;
+	float edge_upper = edge_lower + 0.1;
+
+	if(near_top > edge_lower){
+		color.a = 0.0;
+
+		if(near_top < edge_upper){
+			color.a = (edge_upper - near_top) / (edge_upper - edge_lower);
+		}
+	}
+
+	COLOR = color;
+} "
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/blue_tint = Color( 0.952941, 0.952941, 0.952941, 1 )
+shader_param/sprite_scale = Vector2( 4, 2 )
+shader_param/scale_x = 0.67
+
+[node name="GameCutscene" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Cutscene" type="AnimationPlayer" parent="."]
+anims/FlyingInCircle = SubResource( 1 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+format = 1
+tile_data = PoolIntArray( -589837, 0, 0, -589833, 0, 1, -589829, 0, 1, -589825, 0, 1, -655357, 0, 1, -655353, 0, 2, -327693, 0, 65536, -327689, 0, 65537, -327685, 0, 65537, -327681, 0, 65537, -393213, 0, 65537, -393209, 0, 65538, -65549, 0, 65536, -65545, 0, 65537, -65541, 0, 65537, -65537, 0, 65537, -131069, 0, 65537, -131065, 0, 65537, -131061, 0, 65537, -131057, 0, 65537, -131053, 0, 65537, -131049, 0, 65537, -131045, 0, 65537, 196595, 0, 65536, 196599, 0, 65537, 196603, 0, 65537, 196607, 0, 65537, 131075, 0, 65537, 131079, 0, 65537, 131083, 0, 65537, 131087, 0, 65537, 131091, 0, 65537, 131095, 0, 65537, 131099, 0, 65537, 327704, 0, 65537, 458739, 0, 131072, 458743, 0, 131073, 458747, 0, 131073, 458751, 0, 131073, 393216, 0, 65537, 393219, 0, 65537, 393223, 0, 65537, 393227, 0, 65537, 393231, 0, 65537, 393232, 0, 65537, 393236, 0, 65537, 393244, 0, 65537, 589848, 0, 65537, 655360, 0, 65537, 655364, 0, 65537, 655368, 0, 65537, 655372, 0, 65537, 655376, 0, 65537, 655380, 0, 65537, 655384, 0, 65537, 655388, 0, 65537, 917504, 0, 65537, 917508, 0, 65537, 917512, 0, 65537, 917516, 0, 65537, 917520, 0, 65537, 917524, 0, 65537, 917528, 0, 65537, 917532, 0, 65537 )
+
+[node name="Node2D" parent="." instance=ExtResource( 2 )]
+material = SubResource( 3 )
+position = Vector2( -1279.64, -34.0042 )
+z_index = -1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1045.98, 453.926 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

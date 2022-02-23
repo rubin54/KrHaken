@@ -1,0 +1,202 @@
+Godot Engine v3.3.stable.official - https://godotengine.org
+OpenGL ES 3.0 Renderer: GeForce GTX 1060/PCIe/SSE2
+OpenGL ES Batching: ON
+ 
+**WARNING**: No small icon found, reusing 256x256 @32768 icon!
+   At: platform/windows/os_windows.cpp:3050:set_native_icon() - No small icon found, reusing 256x256 @32768 icon!
+**WARNING**: BaseButton's Enabled Focus Mode property has been deprecated due to redundancy and will be removed in Godot 4.0. Please use Control.set_focus_mode instead.
+   At: scene/gui/base_button.cpp:329:set_enabled_focus_mode() - This method has been deprecated and will be removed in the future.
+**ERROR**: Convex decomposing failed!
+   At: core/math/geometry.cpp:705:decompose_polygon_in_convex() - Convex decomposing failed!
+**ERROR**: Convex decomposing failed!
+   At: core/math/geometry.cpp:705:decompose_polygon_in_convex() - Convex decomposing failed!
+Obilisk placed
+FUNKTIONIERE DOCH
+FUNKTIONIERE DOCH
+hit
+get hit
+hit
+FUNKTIONIERE DOCH
+hit
+hit
+get hit
+FUNKTIONIERE DOCH
+hit
+get hit
+hit
+FUNKTIONIERE DOCH
+hit
+get hit
+FUNKTIONIERE DOCH
+get hit
+hit
+collided with Sword while frozen
+FUNKTIONIERE DOCH
+[Polygon2D:9291]
+[Polygon2D:9292]
+[Polygon2D:9293]
+[Polygon2D:9294]
+[Polygon2D:9295]
+[Polygon2D:9296]
+[Polygon2D:9297]
+[Polygon2D:9298]
+[Polygon2D:9299]
+[Polygon2D:9300]
+[Polygon2D:9301]
+10 Coins/10%-40% Chance
+saved
+FUNKTIONIERE DOCH
+get hit
+hit
+collided with Sword while frozen
+FUNKTIONIERE DOCH
+press E
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+saved
+FUNKTIONIERE DOCH
+FUNKTIONIERE DOCH
+activated
+Obilisk placed
+FUNKTIONIERE DOCH
+[Polygon2D:16053]
+[Polygon2D:16054]
+[Polygon2D:16055]
+[Polygon2D:16056]
+[Polygon2D:16057]
+[Polygon2D:16058]
+[Polygon2D:16059]
+[Polygon2D:16060]
+[Polygon2D:16061]
+[Polygon2D:16062]
+2 Coins/40% or >40% Chance
+saved
+FUNKTIONIERE DOCH
+hit
+20 Coins/2% chance
+saved
+FUNKTIONIERE DOCH
+hit
+FUNKTIONIERE DOCH
+hit
+2 Coins/40% or >40% Chance
+saved
+2 Coins/40% or >40% Chance
+saved
+2 Coins/40% or >40% Chance
+saved
+2 Coins/40% or >40% Chance
+saved
+activated
+Obilisk placed
+FUNKTIONIERE DOCH
+FUNKTIONIERE DOCH
+hit
+2 Coins/40% or >40% Chance
+saved
+FUNKTIONIERE DOCH
+hit
+hit
+FUNKTIONIERE DOCH
+hit
+hit
+activated
+saved
+FUNKTIONIERE DOCH
+FUNKTIONIERE DOCH
+hit
+**ERROR**: Condition "_first != __null" is true.
+   At: ./core/self_list.h:112:~List() - Condition "_first != __null" is true.
+**ERROR**: Condition "_first != __null" is true.
+   At: ./core/self_list.h:112:~List() - Condition "_first != __null" is true.

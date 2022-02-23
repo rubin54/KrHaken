@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/UI/Coinshare.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/UI/HealthUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/UI/InGame UI/Coins.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/UI/InGame UI/AmmoUI.tscn" type="PackedScene" id=5]
+
+[node name="UI" type="CanvasLayer"]
+layer = 100
+
+[node name="HealthUI" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="AmmoUI" parent="." instance=ExtResource( 5 )]
+visible = false
+margin_top = 55.0007
+margin_bottom = 196.001
+
+[node name="Coinshare" parent="." instance=ExtResource( 2 )]
+visible = false
+margin_bottom = 252.0
+
+[node name="Coins" parent="." instance=ExtResource( 4 )]
+visible = false
+margin_top = 218.914
+margin_bottom = 232.914

@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://BasicMap.tres" type="TileSet" id=1]
+[ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Shader/Water_shader/water_shader.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/tilesets/PropsSet.tres" type="TileSet" id=4]
+
+
+[sub_resource type="Shader" id=1]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec4 blue_tint : hint_color;
+
+uniform vec2 sprite_scale;
+uniform float scale_x = 0.67;
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(12.9898, 78.233)))* 43758.5453123);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+void fragment(){
+
+	vec2 noisecoord1 = UV * sprite_scale * scale_x;
+	vec2 noisecoord2 = UV * sprite_scale * scale_x + 4.0;
+
+	vec2 motion1 = vec2(TIME * 0.3, TIME * -0.4);
+	vec2 motion2 = vec2(TIME * 0.1, TIME * 0.5);
+
+	vec2 distort1 = vec2(noise(noisecoord1 + motion1), noise(noisecoord2 + motion1)) - vec2(0.5);
+	vec2 distort2 = vec2(noise(noisecoord1 + motion2), noise(noisecoord2 + motion2)) - vec2(0.5);
+
+	vec2 distort_sum = (distort1 + distort2) / 60.0;
+
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV + distort_sum, 0.0);
+
+	color = mix(color, blue_tint, 0.3);
+	color.rgb = mix(vec3(0.5), color.rgb, 1.4);
+
+	float near_top = (UV.y + distort_sum.y) / (0.2 / sprite_scale.y);
+	near_top = clamp(near_top, 0.0, 1.0);
+	near_top = 1.0 - near_top;
+
+	color = mix(color, vec4(1.0), near_top);
+
+	float edge_lower = 0.6;
+	float edge_upper = edge_lower + 0.1;
+
+	if(near_top > edge_lower){
+		color.a = 0.0;
+
+		if(near_top < edge_upper){
+			color.a = (edge_upper - near_top) / (edge_upper - edge_lower);
+		}
+	}
+
+	COLOR = color;
+} "
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/blue_tint = Color( 0.952941, 0.952941, 0.952941, 1 )
+shader_param/sprite_scale = Vector2( 4, 2 )
+shader_param/scale_x = 0.67
+
+[node name="Node2D" type="Node2D"]
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Environment" type="TileMap" parent="YSort"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 256, 256 )
+format = 1
+tile_data = PoolIntArray( -393216, 1, 0, -393215, 1, 1, -393214, 1, 7, -393213, 1, 1, -393212, 1, 2, -262151, 1, 0, -262150, 1, 1, -262149, 1, 1, -262148, 1, 1, -262147, 1, 1, -262146, 1, 65543, -262145, 1, 1, -327680, 1, 3, -327679, 2, 0, -327678, 2, 1, -327677, 2, 2, -327676, 1, 65538, -196617, 1, 0, -196616, 1, 1, -196615, 1, 3, -196614, 2, 0, -196613, 2, 1, -196612, 2, 1, -196611, 2, 1, -196610, 2, 1, -196609, 2, 1, -262144, 2, 1, -262143, 2, 65537, -262142, 2, 65537, -262141, 2, 65538, -262140, 1, 65538, -131081, 1, 65536, -131080, 2, 0, -131079, 2, 1, -131078, 2, 65537, -131077, 2, 65537, -131076, 2, 65537, -131075, 2, 65537, -131074, 2, 65537, -131073, 2, 65537, -196608, 2, 131073, -196607, 2, 131073, -196606, 2, 131073, -196605, 2, 131074, -196604, 1, 65538, -65545, 1, 65536, -65544, 2, 65536, -65543, 2, 65537, -65542, 2, 65537, -65541, 2, 65537, -65540, 2, 65537, -65539, 2, 65537, -65538, 2, 65537, -65537, 2, 131074, -9, 1, 131076, -8, 2, 65536, -7, 2, 65537, -6, 2, 65537, -5, 2, 65537, -4, 2, 65537, -3, 2, 65537, -2, 2, 65538, 65527, 1, 65536, 65528, 2, 65536, 65529, 2, 65537, 65530, 2, 65537, 65531, 2, 65537, 65532, 2, 65537, 65533, 2, 65537, 65534, 2, 65537, 65535, 2, 2, 131063, 1, 65536, 131064, 2, 131072, 131065, 2, 131073, 131066, 2, 131073, 131067, 2, 131073, 131068, 2, 65537, 131069, 2, 65537, 131070, 2, 65537, 131071, 2, 65537, 65536, 2, 1, 65537, 2, 2, 65538, 1, 65538, 196599, 1, 131072, 196600, 1, 131073, 196601, 1, 131073, 196602, 1, 131073, 196603, 1, 196609, 196604, 2, 131072, 196605, 2, 65537, 196606, 2, 65537, 196607, 2, 65537, 131072, 2, 131073, 131073, 2, 131074, 131074, 1, 131076, 262139, 1, 131072, 262140, 1, 196609, 262141, 2, 131072, 262142, 2, 131073, 262143, 2, 131074, 196608, 1, 196608, 196609, 1, 131073, 196610, 1, 131074, 327676, 1, 131072, 327677, 1, 131073, 327678, 1, 131073, 327679, 1, 131073, 262144, 1, 131074 )
+
+[node name="Props" type="TileMap" parent="YSort"]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 256, 256 )
+format = 1
+tile_data = PoolIntArray( -393215, 1, 1, -393213, 1, 1, -262149, 4, 0, -262148, 1, 0, -327680, 1, 0, -327679, 0, 1, -327677, 0, 1, -196616, 1, 0, -196615, 4, 0, -196614, 6, 0, -262142, 12, 0, -65544, 0, 0, -131072, 8, 0, -131071, 8, 0, -131070, 8, 0, -131069, 8, 0, -131068, 8, 0, -65536, 8, 0, -65535, 8, 0, -65534, 8, 0, -65533, 8, 0, -65532, 8, 0, 65528, 0, 0, 131067, 6, 0, 131071, 5, 0, 65536, 5, 0, 131073, 5, 0, 262141, 4, 0, 262142, 13, 0 )
+
+[node name="Node2D" parent="YSort" instance=ExtResource( 3 )]
+material = SubResource( 2 )
+position = Vector2( -59.3478, -292.82 )
+scale = Vector2( 0.330638, 0.330638 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( -1382.7, -71.751 )

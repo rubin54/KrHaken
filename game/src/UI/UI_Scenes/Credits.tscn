@@ -1,0 +1,520 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Fonts/Feathercut-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/Credits/tatjana.png" type="Texture" id=2]
+[ext_resource path="res://assets/Credits/aina.png" type="Texture" id=3]
+[ext_resource path="res://assets/Credits/alex 2.png" type="Texture" id=4]
+[ext_resource path="res://assets/Credits/aleksey.png" type="Texture" id=5]
+[ext_resource path="res://assets/Credits/justin.png" type="Texture" id=6]
+[ext_resource path="res://assets/Credits/dominik.png" type="Texture" id=7]
+[ext_resource path="res://assets/Credits/moya .png" type="Texture" id=8]
+[ext_resource path="res://src/UI/UI_Scenes/Button.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/environment/Objects/portal_tür.png" type="Texture" id=10]
+[ext_resource path="res://assets/Credits/marcus.png" type="Texture" id=11]
+[ext_resource path="res://assets/UI/Title/website_symbol.png" type="Texture" id=12]
+[ext_resource path="res://assets/UI/Title/Twitter_symbol.jpg" type="Texture" id=13]
+[ext_resource path="res://assets/UI/Title/instagram_symbol.png" type="Texture" id=14]
+[ext_resource path="res://Fonts/Menu.tres" type="DynamicFont" id=15]
+[ext_resource path="res://assets/UI/Title/5.png" type="Texture" id=16]
+[ext_resource path="res://assets/UI/Title/logo png.png" type="Texture" id=17]
+[ext_resource path="res://assets/Credits/party_people_russo.png" type="Texture" id=18]
+[ext_resource path="res://assets/Credits/anoym.png" type="Texture" id=19]
+[ext_resource path="res://assets/Credits/party_people_mosi1.png" type="Texture" id=20]
+[ext_resource path="res://Audio/Ambient/Shipwreckers Fight Music V4 (xandro ft. eendeeloops).ogg" type="AudioStream" id=21]
+
+[sub_resource type="DynamicFont" id=1]
+size = 66
+outline_size = 6
+outline_color = Color( 0.372549, 0.105882, 0.54902, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 22
+outline_size = 3
+outline_color = Color( 0.372549, 0.105882, 0.54902, 1 )
+font_data = ExtResource( 1 )
+
+[node name="Credits" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -24.0
+margin_top = -16.0
+margin_right = 1936.0
+margin_bottom = 1112.0
+color = Color( 0.152941, 0.113725, 0.152941, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="logo png" type="Sprite" parent="."]
+visible = false
+position = Vector2( 952, 240 )
+scale = Vector2( 0.279037, 0.279037 )
+texture = ExtResource( 17 )
+
+[node name="6" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.658824 )
+self_modulate = Color( 1, 1, 1, 0.509804 )
+position = Vector2( 1881.36, -133.98 )
+scale = Vector2( 1.31667, 1.31667 )
+texture = ExtResource( 16 )
+
+[node name="portal_tür" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1506.33, 518.853 )
+scale = Vector2( 1.36485, 1.36485 )
+texture = ExtResource( 10 )
+
+[node name="Text" type="Node2D" parent="."]
+
+[node name="Team" type="Label" parent="Text"]
+margin_left = 6.65472
+margin_top = 117.057
+margin_right = 278.655
+margin_bottom = 254.057
+rect_scale = Vector2( 0.802315, 0.802315 )
+custom_fonts/font = SubResource( 1 )
+text = "Team"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Music" type="Label" parent="Text"]
+margin_left = 832.0
+margin_top = 120.0
+margin_right = 1104.0
+margin_bottom = 257.0
+rect_scale = Vector2( 0.802315, 0.802315 )
+custom_fonts/font = SubResource( 1 )
+text = "Music"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="3rd Party Content" type="Label" parent="Text"]
+margin_left = 1384.0
+margin_top = 120.0
+margin_right = 1945.0
+margin_bottom = 257.0
+rect_scale = Vector2( 0.802315, 0.802315 )
+custom_fonts/font = SubResource( 1 )
+text = "3rd Party Content"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Credits" type="Label" parent="Text"]
+margin_left = 22.0
+margin_top = 20.0
+margin_right = 280.0
+margin_bottom = 136.0
+custom_fonts/font = SubResource( 1 )
+text = "Credits"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Back" parent="." instance=ExtResource( 9 )]
+margin_left = 21.5636
+margin_top = 895.491
+margin_right = 227.564
+margin_bottom = 973.491
+rect_scale = Vector2( 2.00487, 1.98545 )
+focus_mode = 1
+enabled_focus_mode = 1
+reference_path = "res://src/UI/UI_Scenes/TitleScreen.tscn"
+
+[node name="Label" type="Label" parent="Back"]
+margin_left = 41.6169
+margin_top = 23.4249
+margin_right = 160.617
+margin_bottom = 58.4249
+custom_fonts/font = ExtResource( 15 )
+text = "BACK"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Team" type="Node2D" parent="."]
+position = Vector2( -72, 8 )
+
+[node name="Moya" type="Node2D" parent="Team"]
+position = Vector2( 80, -128 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="moya " type="Sprite" parent="Team/Moya"]
+position = Vector2( 62.2222, 462.222 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+
+[node name="Name" type="Label" parent="Team/Moya"]
+margin_left = 133.333
+margin_top = 426.667
+margin_right = 349.333
+margin_bottom = 531.668
+custom_fonts/font = SubResource( 2 )
+text = "Moya Franzke
+Producer / Game Design"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dominik" type="Node2D" parent="Team"]
+position = Vector2( 80, -144 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="dominik" type="Sprite" parent="Team/Dominik"]
+position = Vector2( 62.1066, 638.382 )
+scale = Vector2( 0.206119, 0.206119 )
+texture = ExtResource( 7 )
+
+[node name="Name2" type="Label" parent="Team/Dominik"]
+margin_left = 99.4361
+margin_top = 600.362
+margin_right = 411.436
+margin_bottom = 688.362
+custom_fonts/font = SubResource( 2 )
+text = "Dominik Dammer
+Game Design Lead"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Justin" type="Node2D" parent="Team"]
+position = Vector2( 8, -256 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Name6" type="Label" parent="Team/Justin"]
+margin_left = 177.778
+margin_top = 871.111
+margin_right = 489.778
+margin_bottom = 959.111
+custom_fonts/font = SubResource( 2 )
+text = "Justin Mätschke
+Game Engineer Lead"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="justin" type="Sprite" parent="Team/Justin"]
+position = Vector2( 142.222, 915.556 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+
+[node name="Aleksey" type="Node2D" parent="Team"]
+position = Vector2( 8, -272 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Name7" type="Label" parent="Team/Aleksey"]
+margin_left = 162.708
+margin_top = 1036.64
+margin_right = 474.708
+margin_bottom = 1124.64
+custom_fonts/font = SubResource( 2 )
+text = "Aleksey Vanshin
+Game Engineer"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="aleksey" type="Sprite" parent="Team/Aleksey"]
+position = Vector2( 145.758, 1075.25 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 5 )
+
+[node name="Aina" type="Node2D" parent="Team"]
+position = Vector2( -256, 408 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Name3" type="Label" parent="Team/Aina"]
+margin_left = 839.939
+margin_top = -165.256
+margin_right = 1151.94
+margin_bottom = -77.2562
+custom_fonts/font = SubResource( 2 )
+text = "Aina Theede
+Art Lead"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="aina" type="Sprite" parent="Team/Aina"]
+position = Vector2( 844.123, -137.328 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+
+[node name="Alex" type="Node2D" parent="Team"]
+position = Vector2( -256, 408 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Name4" type="Label" parent="Team/Alex"]
+margin_left = 844.444
+margin_top = -8.88889
+margin_right = 1156.45
+margin_bottom = 79.1111
+custom_fonts/font = SubResource( 2 )
+text = "Alexander Gabel
+3D Art"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="alex 2" type="Sprite" parent="Team/Alex"]
+position = Vector2( 842.143, 22.672 )
+scale = Vector2( 0.208336, 0.225942 )
+texture = ExtResource( 4 )
+
+[node name="Tatjana" type="Node2D" parent="Team"]
+position = Vector2( -264, 368 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Name5" type="Label" parent="Team/Tatjana"]
+margin_left = 853.333
+margin_top = 177.778
+margin_right = 1165.34
+margin_bottom = 265.778
+custom_fonts/font = SubResource( 2 )
+text = "Tatjana Stenz
+2D / Concepts"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tatjana" type="Sprite" parent="Team/Tatjana"]
+position = Vector2( 851.032, 223.197 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+
+[node name="Marcus" type="Node2D" parent="Team"]
+position = Vector2( -96, -88 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Name8" type="Label" parent="Team/Marcus"]
+margin_left = 657.778
+margin_top = 835.556
+margin_right = 969.778
+margin_bottom = 923.556
+custom_fonts/font = SubResource( 2 )
+text = "Marcus Berger
+3D Art "
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="marcus" type="Sprite" parent="Team/Marcus"]
+position = Vector2( 656, 872 )
+scale = Vector2( 0.207131, 0.207131 )
+texture = ExtResource( 11 )
+
+[node name="Social Media3" type="Node2D" parent="Team/Marcus"]
+visible = false
+position = Vector2( 448, 536 )
+
+[node name="Twitter" type="Sprite" parent="Team/Marcus/Social Media3"]
+position = Vector2( 336, 392 )
+scale = Vector2( 0.186094, 0.186094 )
+texture = ExtResource( 13 )
+
+[node name="Insta" type="Sprite" parent="Team/Marcus/Social Media3"]
+position = Vector2( 392, 392 )
+scale = Vector2( 0.0770026, 0.0770026 )
+texture = ExtResource( 14 )
+
+[node name="Website" type="Sprite" parent="Team/Marcus/Social Media3"]
+position = Vector2( 448, 392 )
+scale = Vector2( 0.180723, 0.180723 )
+texture = ExtResource( 12 )
+
+[node name="Additional" type="Node2D" parent="."]
+position = Vector2( 24, 0 )
+
+[node name="Additional" type="Label" parent="Additional"]
+margin_left = 1736.0
+margin_top = 56.0
+margin_right = 1952.0
+margin_bottom = 161.0
+custom_fonts/font = SubResource( 2 )
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Simone" type="Sprite" parent="Additional/Additional"]
+position = Vector2( -952, 240 )
+scale = Vector2( 0.18, 0.18 )
+texture = ExtResource( 20 )
+
+[node name="Simone2" type="Label" parent="Additional/Additional"]
+margin_left = -911.0
+margin_top = 200.0
+margin_right = -695.0
+margin_bottom = 305.0
+custom_fonts/font = SubResource( 2 )
+text = "Simone Lupieri
+Audio SFX"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yotam" type="Sprite" parent="Additional/Additional"]
+position = Vector2( -952, 384 )
+scale = Vector2( 0.18, 0.18 )
+texture = ExtResource( 18 )
+
+[node name="Yotam3" type="Sprite" parent="Additional/Additional"]
+position = Vector2( -952, 512 )
+scale = Vector2( 0.18, 0.18 )
+texture = ExtResource( 19 )
+
+[node name="Yotam2" type="Label" parent="Additional/Additional"]
+margin_left = -911.0
+margin_top = 328.0
+margin_right = -695.0
+margin_bottom = 433.0
+custom_fonts/font = SubResource( 2 )
+text = "Yotam Russo	
+Original Music composition"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Xandro" type="Label" parent="Additional/Additional"]
+margin_left = -911.0
+margin_top = 456.0
+margin_right = -695.0
+margin_bottom = 561.0
+custom_fonts/font = SubResource( 2 )
+text = "Xandro
+Audio Background"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3rd Party" type="Label" parent="Additional"]
+margin_left = 1472.0
+margin_top = 888.0
+margin_right = 1688.0
+margin_bottom = 993.0
+custom_fonts/font = SubResource( 2 )
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name6" type="Label" parent="Additional/3rd Party"]
+margin_left = -88.0
+margin_top = -616.0
+margin_right = 128.0
+margin_bottom = -489.0
+custom_fonts/font = SubResource( 2 )
+text = "Daniel Simon, Mark DiAngelo, Mike Koenig, Simon Craggs, Brian Rocca"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name5" type="Label" parent="Additional/3rd Party"]
+margin_left = 138.0
+margin_top = -614.0
+margin_right = 354.0
+margin_bottom = -509.0
+custom_fonts/font = SubResource( 2 )
+text = "Audio 
+CC 3.0"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name8" type="Label" parent="Additional/3rd Party"]
+margin_left = -86.0
+margin_top = -486.0
+margin_right = 130.0
+margin_bottom = -381.0
+custom_fonts/font = SubResource( 2 )
+text = "NathanGDQuest"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name7" type="Label" parent="Additional/3rd Party"]
+margin_left = 130.0
+margin_top = -486.0
+margin_right = 346.0
+margin_bottom = -381.0
+custom_fonts/font = SubResource( 2 )
+text = "Assets, Shader
+CC 4.0"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 21 )
+volume_db = -20.0

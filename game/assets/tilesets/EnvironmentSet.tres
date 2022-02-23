@@ -1,0 +1,28 @@
+[gd_resource type="TileSet" load_steps=2 format=2]
+
+[ext_resource path="res://assets/tilesets/textures/tilemapKrHakenBoden.png" type="Texture" id=2]
+
+[resource]
+17/name = "tilemapKrHakenBoden.png 17"
+17/texture = ExtResource( 2 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 0, 0, 768, 768 )
+17/tile_mode = 1
+17/autotile/bitmask_mode = 2
+17/autotile/bitmask_flags = [ Vector2( 0, 0 ), 432, Vector2( 0, 1 ), 438, Vector2( 0, 2 ), 54, Vector2( 1, 0 ), 504, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 63, Vector2( 2, 0 ), 216, Vector2( 2, 1 ), 219, Vector2( 2, 2 ), 27 ]
+17/autotile/icon_coordinate = Vector2( 1, 1 )
+17/autotile/tile_size = Vector2( 256, 256 )
+17/autotile/spacing = 0
+17/autotile/occluder_map = [  ]
+17/autotile/navpoly_map = [  ]
+17/autotile/priority_map = [  ]
+17/autotile/z_index_map = [  ]
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shape_offset = Vector2( 0, 0 )
+17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape_one_way = false
+17/shape_one_way_margin = 0.0
+17/shapes = [  ]
+17/z_index = 0

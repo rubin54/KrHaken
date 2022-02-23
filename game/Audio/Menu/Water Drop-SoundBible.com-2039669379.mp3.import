@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Water Drop-SoundBible.com-2039669379.mp3-3a68e101e2243805186cef528a0f87a3.mp3str"
+
+[deps]
+
+source_file="res://Audio/Menu/Water Drop-SoundBible.com-2039669379.mp3"
+dest_files=[ "res://.import/Water Drop-SoundBible.com-2039669379.mp3-3a68e101e2243805186cef528a0f87a3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

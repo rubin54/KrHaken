@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Flame Arrow-SoundBible.com-618067908.wav-4e942b42e68f1dd156f6abfb7288d267.sample"
+
+[deps]
+
+source_file="res://Audio/Monster/Flame Arrow-SoundBible.com-618067908.wav"
+dest_files=[ "res://.import/Flame Arrow-SoundBible.com-618067908.wav-4e942b42e68f1dd156f6abfb7288d267.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

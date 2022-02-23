@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Shipwreckers Fight Music V3 (xandro ft. eendeeloops).ogg-a4a803dac715dc71be4368922fb24ecb.oggstr"
+
+[deps]
+
+source_file="res://Audio/Ambient/Shipwreckers Fight Music V3 (xandro ft. eendeeloops).ogg"
+dest_files=[ "res://.import/Shipwreckers Fight Music V3 (xandro ft. eendeeloops).ogg-a4a803dac715dc71be4368922fb24ecb.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

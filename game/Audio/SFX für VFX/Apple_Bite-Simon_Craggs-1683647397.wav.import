@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Apple_Bite-Simon_Craggs-1683647397.wav-797635b904c9c6d80c20354807127ae0.sample"
+
+[deps]
+
+source_file="res://Audio/SFX für VFX/Apple_Bite-Simon_Craggs-1683647397.wav"
+dest_files=[ "res://.import/Apple_Bite-Simon_Craggs-1683647397.wav-797635b904c9c6d80c20354807127ae0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

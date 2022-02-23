@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Shipwreck-Game-2V.ogg-5072b82671aa76a0438d286dc0d7e9de.oggstr"
+
+[deps]
+
+source_file="res://Audio/Ambient/Shipwreck-Game-2V.ogg"
+dest_files=[ "res://.import/Shipwreck-Game-2V.ogg-5072b82671aa76a0438d286dc0d7e9de.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

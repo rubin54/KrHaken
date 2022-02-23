@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/environment/Objects/kristal_wand.png" type="Texture" id=1]
+[ext_resource path="res://src/Objects/HookTarget.gd" type="Script" id=2]
+[ext_resource path="res://assets/environment/Objects/kristal_saule.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 65.4979
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "FrozenCrystal",
+"speed": 5.0
+} ]
+
+[node name="MeleeEnemyHookTarget" type="Area2D"]
+collision_layer = 0
+collision_mask = 64
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="LayerSwap" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -0.543161, -0.543214 )
+scale = Vector2( 0.49039, 0.49039 )
+frames = SubResource( 2 )
+animation = "FrozenCrystal"
+frame = 1
+[connection signal="area_entered" from="." to="." method="_on_MeleeEnemyHookTarget_area_entered"]
+[connection signal="timeout" from="LayerSwap" to="." method="_on_LayerSwap_timeout"]

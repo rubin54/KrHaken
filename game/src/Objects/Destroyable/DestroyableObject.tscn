@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://src/Scripts/Destroyable/DestroyableObject.gd" type="Script" id=1]
+[ext_resource path="res://assets/environment/Objects/pot_asset.png" type="Texture" id=2]
+[ext_resource path="res://Audio/SFX für VFX/Glass Breaking-SoundBible.com-1765179538.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/environment/Objects/pot_asset_broke.png" type="Texture" id=4]
+[ext_resource path="res://assets/environment/Objects/pot_asset_more_broken.png" type="Texture" id=5]
+[ext_resource path="res://src/Objects/Destroyable/Töpfe.gd" type="Script" id=6]
+[ext_resource path="res://assets/characters/player/shadow.png" type="Texture" id=7]
+
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32.0856, 32.1376 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "töpfe",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+[node name="DestroyableObject" type="Node2D"]
+scale = Vector2( 3.0366, 3.0366 )
+
+[node name="brakesound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -5.0
+pitch_scale = 0.7
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 1, 1, 1, 0 )
+texture = ExtResource( 2 )
+texture_scale = Vector2( 3.5, 3.3 )
+polygon = PoolVector2Array( 0.0189819, 0.1369, -0.138508, 64.2354, 63.8025, 64.3929, 63.8025, 0.29439 )
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="Polygon2D"]
+
+[node name="Area2D" type="Area2D" parent="Polygon2D"]
+collision_layer = 2
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Polygon2D/Area2D"]
+position = Vector2( 31.9305, 32.3509 )
+shape = SubResource( 1 )
+
+[node name="Topf" type="AnimatedSprite" parent="."]
+position = Vector2( 31.6292, 32.8944 )
+scale = Vector2( 0.283873, 0.283873 )
+frames = SubResource( 2 )
+animation = "töpfe"
+script = ExtResource( 6 )
+
+[node name="shadow" type="Sprite" parent="Topf"]
+modulate = Color( 0.968627, 0.254902, 0.839216, 1 )
+show_behind_parent = true
+position = Vector2( 3.68967, 92.8817 )
+scale = Vector2( 1.21367, 1.21367 )
+texture = ExtResource( 7 )
+
+[node name="Area2D" type="Area2D" parent="Topf"]
+collision_layer = 18
+collision_mask = 192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Topf/Area2D"]
+scale = Vector2( 11.207, 11.207 )
+shape = SubResource( 3 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Topf"]
+collision_layer = 18
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Topf/StaticBody2D"]
+scale = Vector2( 11.1018, 11.3266 )
+shape = SubResource( 4 )
+[connection signal="timeout" from="Polygon2D/Timer" to="Polygon2D" method="_on_Timer_timeout"]
+[connection signal="area_entered" from="Polygon2D/Area2D" to="Polygon2D" method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="Topf/Area2D" to="Topf" method="_on_Area2D_area_entered"]

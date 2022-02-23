@@ -1,0 +1,109 @@
+
+-------------------------------------------------------------------------------------------
+					Credits
+
+-------------------------------------------------------------------------------------------
+
+Project Kr'Haken by Team Shipwreckers
+1. Semester Project
+
+
+S4G SCHOOL FOR GAMES GMBH BERLIN
+https://www.school4games.net/
+
+
+Godot Engine
+https://godotengine.org/ 
+
+------------------------------------------------
+
+			Team
+
+------------------------------------------------
+
+Moya Franzke - Producer / Game Design
+
+Dominik Dammer - Lead Game Design
+
+
+Justin Mätschke - Lead Game Engineering
+
+Aleksey Vanshin - Game Engineering
+
+
+Aina Theede - Lead Artist
+
+Alexander Gabel - 3D Art
+
+Markus Berger - 3D Art
+
+Tatjana Stenz - 2D Art
+
+
+------------------------------------------------
+
+		Special Thanks
+
+------------------------------------------------
+
+
+---------------------------
+
+	  Music
+
+---------------------------
+
+
+Yotam Russo - Original Music Composition
+
+Simone Lupiere - Audio SFX
+
+Xandro feat. EendeeLoopS and _genamusic - Additional Music
+
+
+
+------------------------------------------------
+
+		3rd Party Content
+
+------------------------------------------------
+
+
+
+---------------------------
+
+	Sound, Music, SFX
+
+---------------------------
+
+Soundbible.com 
+
+Mark Di Angelo - CC 3.0 https://soundbible.com/2067-Blop.html (among others)
+Mike Koenig - CC 3.0 https://soundbible.com/885-Sea-Waves.html (among others)
+Daniel Simon - CC 3.0 https://soundbible.com/2186-Water-Drops.html (among others)
+Simon Craggs - CC 3.0 https://soundbible.com/1968-Apple-Bite.html
+Brian Rocca - CC 3.0 https://soundbible.com/1992-Pin-Dropping.html
+
+
+
+---------------------------
+
+	Shader
+
+---------------------------
+
+NathanGDQuest - CC 4.0 https://www.gdquest.com/​ 
+
+
+
+
+------------------------------------------------
+
+			Stats
+
+------------------------------------------------
+
+
+No kraken or squid got injured in this production.
+
+

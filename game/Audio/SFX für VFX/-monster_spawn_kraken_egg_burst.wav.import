@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/-monster_spawn_kraken_egg_burst.wav-bbf445549b5eb05497ad0cf46f3bdc3b.sample"
+
+[deps]
+
+source_file="res://Audio/SFX für VFX/-monster_spawn_kraken_egg_burst.wav"
+dest_files=[ "res://.import/-monster_spawn_kraken_egg_burst.wav-bbf445549b5eb05497ad0cf46f3bdc3b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

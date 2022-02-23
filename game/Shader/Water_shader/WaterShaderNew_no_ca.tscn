@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Shader/new_water_no_ca.shader" type="Shader" id=1]
+[ext_resource path="res://WATER.gd" type="Script" id=2]
+[ext_resource path="res://assets/UI/Title/1.png" type="Texture" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/blue_tint = Color( 0, 0.027451, 0.258824, 1 )
+shader_param/sprite_scale = Vector2( 1, 1 )
+shader_param/scale_x = 0.67
+
+[node name="Water" type="Node2D"]
+
+[node name="WATER" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 0, -3.19666 )
+texture = ExtResource( 3 )
+script = ExtResource( 2 )

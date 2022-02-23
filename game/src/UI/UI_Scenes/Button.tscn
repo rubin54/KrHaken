@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/UI/UI_Scenes/Button.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/Buttons/menu_button_gray.png" type="Texture" id=2]
+[ext_resource path="res://assets/UI/Buttons/menu_button_white.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/Buttons/menu_button_yellow.png" type="Texture" id=4]
+[ext_resource path="res://Audio/Menu/menu_button_2_wet_fx.wav" type="AudioStream" id=5]
+
+[node name="Button" type="TextureButton"]
+margin_right = 119.0
+margin_bottom = 35.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 3 )
+expand = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "SFX"

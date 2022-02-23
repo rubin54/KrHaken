@@ -1,0 +1,133 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/UI/UI_Scenes/Button.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/UI/Deathscreen/deathbackground.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/Feathercut-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/VFX/Player/PlayerHitFeedback.png" type="Texture" id=4]
+[ext_resource path="res://src/UI/UI_Scenes/DeathEyes.anim" type="Animation" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 2
+outline_color = Color( 0.372549, 0.105882, 0.54902, 1 )
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 28
+outline_color = Color( 0.152941, 0.00784314, 0.0313726, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 75
+outline_size = 3
+outline_color = Color( 1, 0.666667, 0.713726, 1 )
+font_data = ExtResource( 3 )
+
+[node name="DeathScreen" type="Node"]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 960.215, 541.027 )
+texture = ExtResource( 2 )
+
+[node name="Button" parent="." instance=ExtResource( 1 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -113.831
+margin_top = 444.317
+margin_right = 5.16858
+margin_bottom = 479.317
+rect_scale = Vector2( 2.32696, 2.32696 )
+reference_path = "res://src/UI/UI_Scenes/TitleScreen.tscn"
+start_focused = true
+
+[node name="Label" type="Label" parent="Button"]
+margin_left = 15.5725
+margin_top = 7.04834
+margin_right = 106.573
+margin_bottom = 30.0483
+custom_fonts/font = SubResource( 1 )
+text = "Try again"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 1361.65
+margin_top = 987.554
+margin_right = 1885.65
+margin_bottom = 1097.55
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0.788235, 0.819608, 1 )
+text = "consumed 75% of  collected souls"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "DeathScreen"
+anims/DeathEyes = ExtResource( 5 )
+anims/DeathScreen = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 384.818, 252.874 )
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 6
+frame = 10
+
+[node name="Sprite2" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 488.907, 889.493 )
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 6
+frame = 10
+
+[node name="Sprite3" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 1400.88, 892.868 )
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 6
+frame = 10
+
+[node name="Sprite4" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 1508.36, 256.248 )
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 6
+frame = 10
+
+[node name="Sprite5" type="Sprite" parent="."]
+modulate = Color( 1, 0, 0, 0 )
+position = Vector2( 938.994, 543.538 )
+scale = Vector2( 1.46576, 1.55459 )
+texture = ExtResource( 4 )
+vframes = 2
+hframes = 6
+frame = 10
+
+[node name="struggle" type="Label" parent="."]
+margin_left = 566.321
+margin_top = 334.33
+margin_right = 1314.32
+margin_bottom = 758.33
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.517647, 0, 0.133333, 1 )
+text = "- RESURRECTION -
+
+keep struggling, you're not done yet"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

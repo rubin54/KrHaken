@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Ship_Bell-Mike_Koenig-1911209136_Short.wav-714d1eb4808b97b5b7656a96a4e67830.sample"
+
+[deps]
+
+source_file="res://Audio/Menu/Ship_Bell-Mike_Koenig-1911209136_Short.wav"
+dest_files=[ "res://.import/Ship_Bell-Mike_Koenig-1911209136_Short.wav-714d1eb4808b97b5b7656a96a4e67830.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

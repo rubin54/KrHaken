@@ -1,0 +1,798 @@
+[gd_scene load_steps=44 format=2]
+
+[ext_resource path="res://Shader/Water_shader/water_shader.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BasicMap.tres" type="TileSet" id=3]
+[ext_resource path="res://assets/tilesets/PropsSet.tres" type="TileSet" id=4]
+[ext_resource path="res://TriggerEvents/SceneTransition.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Shader/Fog.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/UI/UI_Scenes/UI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Enemy/Nest.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/environment/props/candle_tiles.tres" type="TileSet" id=9]
+[ext_resource path="res://src/Objects/Destroyable/DestroyableObject.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/environment/props/guiding arrow2.png" type="Texture" id=11]
+[ext_resource path="res://assets/VFX/Bubble/bubble.tres" type="Material" id=12]
+[ext_resource path="res://assets/VFX/Candle/candle_particles.tres" type="Material" id=13]
+[ext_resource path="res://assets/VFX/ordner für staub/fensterstaub.tres" type="Material" id=14]
+[ext_resource path="res://assets/environment/background/decoration/wasser hg alge.png" type="Texture" id=15]
+[ext_resource path="res://assets/Licht assets/fenster licht neu.png" type="Texture" id=16]
+[ext_resource path="res://assets/environment/background/decoration/hintergrund_für_loch.png" type="Texture" id=17]
+[ext_resource path="res://assets/Licht assets/light.png" type="Texture" id=18]
+[ext_resource path="res://assets/VFX/Bubble/bubble_sprite2.png" type="Texture" id=19]
+[ext_resource path="res://src/Objects/Interactive/ObiliskSpawnPositions.tscn" type="PackedScene" id=20]
+[ext_resource path="res://src/Scripts/RoomManager/PrayerRoom.gd" type="Script" id=21]
+[ext_resource path="res://src/Projectiles/BulletManager.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Shader/Water_shader/WaterShaderNew_no_ca.tscn" type="PackedScene" id=23]
+[ext_resource path="res://assets/VFX/Bubble/bubble_canvas.tres" type="Material" id=24]
+[ext_resource path="res://src/Scripts/Transitioning/Doors.gd" type="Script" id=25]
+[ext_resource path="res://Audio/Ambient/Shipwreckers Soundtrack (xandro ft. genamusic).ogg" type="AudioStream" id=26]
+[ext_resource path="res://src/Objects/Destroyable/DestroyableNest.tscn" type="PackedScene" id=27]
+[ext_resource path="res://src/Objects/Special tiles/HookableTarget.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Audio/Ambient/Spooky Water Drops-SoundBible.com-50164895.wav" type="AudioStream" id=29]
+[ext_resource path="res://Audio/SFX für VFX/Underwater_Pool-Mike_Koenig-355864284.wav" type="AudioStream" id=30]
+[ext_resource path="res://assets/UI/tutorial/tutorial_char_freeze.png" type="Texture" id=31]
+[ext_resource path="res://assets/UI/tutorial/hook.png" type="Texture" id=32]
+[ext_resource path="res://assets/UI/tutorial/projektil.png" type="Texture" id=33]
+[ext_resource path="res://src/Levels/MapSound/Prayer/World Collision2.gd" type="Script" id=34]
+[ext_resource path="res://Audio/Player/Shot/shot_doesnt_work_hit_wall.wav" type="AudioStream" id=35]
+[ext_resource path="res://assets/environment/background/shadows/prayerroom_right.png" type="Texture" id=36]
+[ext_resource path="res://assets/environment/background/shadows/prayerroom_left.png" type="Texture" id=37]
+
+[sub_resource type="Shader" id=1]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec4 blue_tint : hint_color;
+
+uniform vec2 sprite_scale;
+uniform float scale_x = 0.67;
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(12.9898, 78.233)))* 43758.5453123);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+void fragment(){
+
+	vec2 noisecoord1 = UV * sprite_scale * scale_x;
+	vec2 noisecoord2 = UV * sprite_scale * scale_x + 4.0;
+
+	vec2 motion1 = vec2(TIME * 0.3, TIME * -0.4);
+	vec2 motion2 = vec2(TIME * 0.1, TIME * 0.5);
+
+	vec2 distort1 = vec2(noise(noisecoord1 + motion1), noise(noisecoord2 + motion1)) - vec2(0.5);
+	vec2 distort2 = vec2(noise(noisecoord1 + motion2), noise(noisecoord2 + motion2)) - vec2(0.5);
+
+	vec2 distort_sum = (distort1 + distort2) / 60.0;
+
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV + distort_sum, 0.0);
+
+	color = mix(color, blue_tint, 0.3);
+	color.rgb = mix(vec3(0.5), color.rgb, 1.4);
+
+	float near_top = (UV.y + distort_sum.y) / (0.2 / sprite_scale.y);
+	near_top = clamp(near_top, 0.0, 1.0);
+	near_top = 1.0 - near_top;
+
+	color = mix(color, vec4(1.0), near_top);
+
+	float edge_lower = 0.6;
+	float edge_upper = edge_lower + 0.1;
+
+	if(near_top > edge_lower){
+		color.a = 0.0;
+
+		if(near_top < edge_upper){
+			color.a = (edge_upper - near_top) / (edge_upper - edge_lower);
+		}
+	}
+
+	COLOR = color;
+} "
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/blue_tint = Color( 0.952941, 0.952941, 0.952941, 1 )
+shader_param/sprite_scale = Vector2( 4, 2 )
+shader_param/scale_x = 0.67
+
+[sub_resource type="Shader" id=3]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec4 blue_tint : hint_color;
+
+uniform vec2 sprite_scale;
+uniform float scale_x = 0.67;
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(12.9898, 78.233)))* 43758.5453123);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+void fragment(){
+
+	vec2 noisecoord1 = UV * sprite_scale * scale_x;
+	vec2 noisecoord2 = UV * sprite_scale * scale_x + 4.0;
+
+	vec2 motion1 = vec2(TIME * 0.3, TIME * -0.4);
+	vec2 motion2 = vec2(TIME * 0.1, TIME * 0.5);
+
+	vec2 distort1 = vec2(noise(noisecoord1 + motion1), noise(noisecoord2 + motion1)) - vec2(0.5);
+	vec2 distort2 = vec2(noise(noisecoord1 + motion2), noise(noisecoord2 + motion2)) - vec2(0.5);
+
+	vec2 distort_sum = (distort1 + distort2) / 60.0;
+
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV + distort_sum, 0.0);
+
+	color = mix(color, blue_tint, 0.3);
+	color.rgb = mix(vec3(0.5), color.rgb, 1.4);
+
+	float near_top = (UV.y + distort_sum.y) / (0.2 / sprite_scale.y);
+	near_top = clamp(near_top, 0.0, 1.0);
+	near_top = 1.0 - near_top;
+
+	color = mix(color, vec4(1.0), near_top);
+
+	float edge_lower = 0.6;
+	float edge_upper = edge_lower + 0.1;
+
+	if(near_top > edge_lower){
+		color.a = 0.0;
+
+		if(near_top < edge_upper){
+			color.a = (edge_upper - near_top) / (edge_upper - edge_lower);
+		}
+	}
+
+	COLOR = color;
+} "
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = SubResource( 3 )
+shader_param/blue_tint = Color( 0.952941, 0.952941, 0.952941, 1 )
+shader_param/sprite_scale = Vector2( 4, 2 )
+shader_param/scale_x = 0.67
+
+[sub_resource type="Shader" id=5]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform vec4 blue_tint : hint_color;
+
+uniform vec2 sprite_scale;
+uniform float scale_x = 0.67;
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(12.9898, 78.233)))* 43758.5453123);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+void fragment(){
+
+	vec2 noisecoord1 = UV * sprite_scale * scale_x;
+	vec2 noisecoord2 = UV * sprite_scale * scale_x + 4.0;
+
+	vec2 motion1 = vec2(TIME * 0.3, TIME * -0.4);
+	vec2 motion2 = vec2(TIME * 0.1, TIME * 0.5);
+
+	vec2 distort1 = vec2(noise(noisecoord1 + motion1), noise(noisecoord2 + motion1)) - vec2(0.5);
+	vec2 distort2 = vec2(noise(noisecoord1 + motion2), noise(noisecoord2 + motion2)) - vec2(0.5);
+
+	vec2 distort_sum = (distort1 + distort2) / 60.0;
+
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV + distort_sum, 0.0);
+
+	color = mix(color, blue_tint, 0.3);
+	color.rgb = mix(vec3(0.5), color.rgb, 1.4);
+
+	float near_top = (UV.y + distort_sum.y) / (0.2 / sprite_scale.y);
+	near_top = clamp(near_top, 0.0, 1.0);
+	near_top = 1.0 - near_top;
+
+	color = mix(color, vec4(1.0), near_top);
+
+	float edge_lower = 0.6;
+	float edge_upper = edge_lower + 0.1;
+
+	if(near_top > edge_lower){
+		color.a = 0.0;
+
+		if(near_top < edge_upper){
+			color.a = (edge_upper - near_top) / (edge_upper - edge_lower);
+		}
+	}
+
+	COLOR = color;
+} "
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = SubResource( 5 )
+shader_param/blue_tint = Color( 0.952941, 0.952941, 0.952941, 1 )
+shader_param/sprite_scale = Vector2( 4, 2 )
+shader_param/scale_x = 0.67
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 21 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Shader" type="Node2D" parent="YSort"]
+
+[node name="Wassershader2" parent="YSort/Shader" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 0.211765 )
+self_modulate = Color( 1, 1, 1, 0.290196 )
+material = SubResource( 2 )
+position = Vector2( 3467.36, -1490.96 )
+scale = Vector2( 0.102454, -0.166351 )
+
+[node name="Wassershader" parent="YSort/Shader" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 0.282353 )
+self_modulate = Color( 1, 1, 1, 0.333333 )
+material = SubResource( 4 )
+position = Vector2( 2059.87, -1202.55 )
+scale = Vector2( 0.135522, 0.143982 )
+
+[node name="Wassershader3" parent="YSort/Shader" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 0.513726 )
+self_modulate = Color( 1, 1, 1, 0.172549 )
+material = SubResource( 6 )
+position = Vector2( -471.152, -50.0949 )
+scale = Vector2( 0.12979, 0.0842956 )
+
+[node name="Fog" parent="YSort/Shader" instance=ExtResource( 6 )]
+visible = false
+
+[node name="Water" parent="YSort/Shader" instance=ExtResource( 23 )]
+visible = false
+position = Vector2( 1542.4, -1359.65 )
+scale = Vector2( 2.13781, 2.83939 )
+
+[node name="floor" type="TileMap" parent="YSort"]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 256, 256 )
+collision_layer = 2
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -458750, 2, 0, -458749, 2, 1, -458748, 2, 1, -458747, 2, 2, -458741, 2, 0, -458740, 2, 1, -458739, 2, 1, -458738, 2, 2, -393215, 2, 0, -393214, 2, 65537, -393213, 2, 65537, -393212, 2, 65537, -393211, 2, 65537, -393210, 2, 2, -393206, 2, 0, -393205, 2, 65537, -393204, 2, 65537, -393203, 2, 65537, -393202, 2, 65537, -393201, 2, 2, -327680, 2, 0, -327679, 2, 65537, -327678, 2, 65537, -327677, 2, 65537, -327676, 2, 65537, -327675, 2, 65537, -327674, 2, 65537, -327673, 2, 1, -327672, 2, 1, -327671, 2, 1, -327670, 2, 65537, -327669, 2, 65537, -327668, 2, 65537, -327667, 2, 65537, -327666, 2, 65537, -327665, 2, 65537, -327664, 2, 2, -262144, 2, 131072, -262143, 2, 65537, -262142, 2, 65537, -262141, 2, 65537, -262140, 2, 65537, -262139, 2, 65537, -262138, 2, 65537, -262137, 2, 131073, -262136, 2, 131073, -262135, 2, 131073, -262134, 2, 65537, -262133, 2, 65537, -262132, 2, 65537, -262131, 2, 65537, -262130, 2, 65537, -262129, 2, 65537, -262128, 2, 131074, -196607, 2, 65536, -196606, 2, 65537, -196605, 2, 65537, -196604, 2, 65537, -196603, 2, 65537, -196602, 2, 65538, -196598, 2, 65536, -196597, 2, 65537, -196596, 2, 65537, -196595, 2, 65537, -196594, 2, 65537, -196593, 2, 65538, -131071, 2, 65536, -131070, 2, 65537, -131069, 2, 65537, -131068, 2, 65537, -131067, 2, 65537, -131066, 2, 65538, -131062, 2, 65536, -131061, 2, 65537, -131060, 2, 65537, -131059, 2, 65537, -131058, 2, 65537, -131057, 2, 65538, -6, 2, 0, -5, 2, 2, -65535, 2, 65536, -65534, 2, 65537, -65533, 2, 65537, -65532, 2, 65537, -65531, 2, 65537, -65530, 2, 65538, -65526, 2, 65536, -65525, 2, 65537, -65524, 2, 65537, -65523, 2, 65537, -65522, 2, 65537, -65521, 2, 65538, 65530, 2, 65536, 65531, 2, 65537, 65532, 2, 65540, 65533, 2, 65540, 65534, 2, 65540, 65535, 2, 65540, 0, 2, 65540, 1, 2, 65537, 2, 2, 65537, 3, 2, 65537, 4, 2, 65537, 5, 2, 65537, 6, 2, 65538, 10, 2, 65536, 11, 2, 65537, 12, 2, 65537, 13, 2, 65537, 14, 2, 65537, 15, 2, 65538, 131066, 2, 131072, 131067, 2, 131074, 65537, 2, 131072, 65538, 2, 131073, 65539, 2, 131073, 65540, 2, 131073, 65541, 2, 131073, 65542, 2, 131074, 65546, 2, 131072, 65547, 2, 131073, 65548, 2, 131073, 65549, 2, 131073, 65550, 2, 131073, 65551, 2, 131074 )
+
+[node name="Tutorial" type="Node2D" parent="YSort/floor"]
+position = Vector2( 1443.3, -1298.6 )
+
+[node name="tutorial_char_freeze" type="Sprite" parent="YSort/floor/Tutorial"]
+position = Vector2( -276.823, 55.1146 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 31 )
+
+[node name="hook" type="Sprite" parent="YSort/floor/Tutorial"]
+position = Vector2( -161.441, 91.6623 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 32 )
+
+[node name="projektil" type="Sprite" parent="YSort/floor/Tutorial"]
+position = Vector2( -161.709, 36.3774 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 33 )
+
+[node name="carpet" type="TileMap" parent="YSort"]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 256, 256 )
+collision_layer = 2
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -327678, 4, 2, -327677, 4, 3, -327676, 4, 3, -327675, 6, 1, -327674, 4, 3, -327673, 4, 3, -327672, 4, 3, -327671, 4, 3, -327670, 4, 3, -327669, 4, 3, -327668, 4, 3, -327667, 4, 3, -327666, 4, 4, -262142, 4, 65538, -262141, -1073741820, 65539, -262140, -1073741820, 65539, -262139, 4, 65537, -262138, 4, 131075, -262137, 4, 131075, -262136, 4, 131075, -262135, 4, 131075, -262134, 4, 131075, -262133, 4, 65536, -262132, 4, 65539, -262131, 4, 65539, -262130, 4, 65540, -196606, 4, 65538, -196605, -1073741820, 65539, -196604, -1073741820, 65539, -196603, 6, 65538, -196597, 4, 65538, -196596, 4, 65539, -196595, 4, 65539, -196594, 4, 65540, -131070, 4, 65538, -131069, 4, 65539, -131068, 4, 65539, -131067, 4, 65540, -131061, 4, 65538, -131060, 4, 65539, -131059, 4, 65539, -131058, 4, 65540, -65534, 4, 65538, -65533, 4, 65539, -65532, 4, 65539, -65531, 4, 65540, -65525, 4, 65538, -65524, 4, 65539, -65523, 4, 65539, -65522, 4, 65540, 2, 4, 65538, 3, 4, 65539, 4, 4, 65539, 5, 4, 65540, 11, 4, 65538, 12, 4, 65539, 13, 4, 65539, 14, 4, 65540, 65538, 4, 131074, 65539, 4, 131075, 65540, 4, 131075, 65541, 4, 131076, 65547, 4, 131074, 65548, 4, 131075, 65549, 4, 131075, 65550, 4, 131076 )
+
+[node name="candles" type="TileMap" parent="YSort/carpet"]
+position = Vector2( 1418.01, -4756.67 )
+scale = Vector2( 1.5, 1.5 )
+tile_set = ExtResource( 9 )
+cell_size = Vector2( 100, 100 )
+collision_layer = 0
+collision_mask = 2147483648
+format = 1
+tile_data = PoolIntArray( 1572859, 0, 2, 1507340, 0, 1, 1835017, 0, 65536 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Objects" type="Node2D" parent="YSort"]
+
+[node name="Objects" type="TileMap" parent="YSort/Objects"]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 256, 256 )
+collision_layer = 2
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -524285, 1, 2, -524284, 1, 0, -524276, 1, 0, -524275, 1, 2, -458751, 7, 0, -458749, 8, 0, -458746, 7, 0, -458742, 7, 0, -458740, 8, 0, -458737, 7, 0, -393216, 1, 1, -393215, 0, 0, -393213, 13, 0, -393210, 0, 0, -393209, 1, 1, -393207, 1, 1, -393206, 0, 0, -393204, 13, 0, -393201, 0, 0, -393200, 1, 1, -327675, 10, 0, -327669, 10, 0, -327664, 3, 2, -65542, 7, 0, -131058, 536870921, 0, -5, 0, 2, -65526, 8, 1, 131066, 0, 2, 65547, 10, 0 )
+
+[node name="Table" type="TileMap" parent="YSort/Objects"]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 128, 128 )
+cell_tile_origin = 1
+format = 1
+tile_data = PoolIntArray( -458725, 28, 0, -393214, 536870938, 0, -393206, 26, 0, -393196, 536870940, 0, -262142, 536870938, 0, -262134, 26, 0, -196581, -536870886, 0, -131070, 536870938, 0, -131062, 28, 0, -131053, 28, 0 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="YSort/Objects/Table"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/Objects/Table/StaticBody2D"]
+polygon = PoolVector2Array( 360, -712, 632, -704, 680, -640, 664, -560, 616, -552, 672, -392, 672, -296, 624, -296, 624, -184, 672, -136, 672, -40, 352, -64, 360, -192, 400, -224, 352, -304, 368, -448, 368, -568 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="YSort/Objects/Table"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/Objects/Table/StaticBody2D2"]
+position = Vector2( 1087.57, -11.3967 )
+polygon = PoolVector2Array( 320.43, -692.603, 600.43, -692.603, 608.43, -556.603, 568.43, -548.603, 600.43, -436.603, 608.43, -292.603, 560.43, -308.603, 568.43, -196.603, 592.43, -44.6033, 320.43, -36.6033, 328.43, -140.603, 288.43, -268.603, 288.43, -388.603, 336.43, -436.603, 344.43, -548.603, 296.43, -548.603, 288.43, -604.603 )
+
+[node name="walls" type="TileMap" parent="YSort"]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 256, 256 )
+collision_layer = 2
+collision_mask = 2147483648
+format = 1
+tile_data = PoolIntArray( -524287, 1, 0, -524285, 1, 1, -524284, 1, 1, -524282, 1, 2, -524278, 1, 0, -524277, 1, 131079, -524276, 1, 1, -524275, 1, 1, -524273, 1, 2, -458752, 1, 0, -458751, 1, 3, -458746, 1, 65539, -458745, 1, 2, -458743, 1, 0, -458742, 1, 3, -458737, 1, 65539, -458736, 1, 2, -327681, 1, 0, -393216, 1, 3, -393209, 1, 65539, -393208, 1, 65543, -393207, 1, 3, -393200, 1, 65539, -393199, 1, 2, -262145, 1, 65536, -327663, 1, 65538, -196609, 1, 65536, -262127, 1, 65538, -131073, 1, 131072, -196608, 1, 196609, -196601, 1, 196608, -196600, 1, 131073, -196599, 1, 196609, -196592, 1, 196608, -196591, 1, 131074, -65543, 1, 0, -65542, 1, 1, -65541, 1, 1, -65540, 1, 2, -131072, 1, 65536, -131065, 1, 65538, -131063, 1, 65536, -131056, 1, 65538, -7, 1, 65536, -4, 1, 65539, -3, 1, 1, -1, 1, 1, -65536, 1, 3, -65529, 1, 65538, -65527, 1, 65536, -65520, 1, 65538, 65529, 1, 65536, 7, 1, 65538, 9, 1, 65536, 131065, 1, 65536, 131068, 1, 196608, 131069, 1, 131073, 131070, 1, 131073, 131071, 1, 131073, 65536, 1, 196609, 65543, 1, 65538, 65545, 1, 65536, 65552, 1, 65538, 196601, 1, 131072, 196602, 1, 131073, 196603, 1, 131073, 196604, 1, 131074, 131072, 1, 131072, 131073, 1, 131073, 131074, 1, 131073, 131075, 1, 131073, 131076, 1, 131073, 131077, 1, 131073, 131078, 1, 131073, 131079, 1, 131074, 131081, 1, 131072, 131082, 1, 131073, 131083, 1, 131073, 131084, 1, 131073, 131085, 1, 131073, 131086, 1, 131073, 131087, 1, 131073, 131088, 1, 131074 )
+
+[node name="walls zusatz" type="TileMap" parent="YSort"]
+modulate = Color( 1.1, 1, 1, 1 )
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 256, 256 )
+collision_layer = 2
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -524286, 1, 131079, -524283, 1, 131079, -524277, 1, 131079, -524274, 1, 65543, -393208, 1, 65543, -2, 1, 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="prayerroom_left" type="Sprite" parent="YSort/walls zusatz"]
+modulate = Color( 0.411765, 0.0352941, 0.447059, 0.807843 )
+show_behind_parent = true
+position = Vector2( 111.667, -453.217 )
+scale = Vector2( 1.37184, 1.37184 )
+texture = ExtResource( 37 )
+
+[node name="prayerroom_right" type="Sprite" parent="YSort/walls zusatz"]
+modulate = Color( 0.411765, 0.0352941, 0.447059, 0.807843 )
+show_behind_parent = true
+position = Vector2( 3305.74, -457.136 )
+scale = Vector2( 1.45713, 1.45713 )
+texture = ExtResource( 36 )
+
+[node name="Light" type="Node2D" parent="YSort"]
+
+[node name="Chandeliers and Candles" type="Node2D" parent="YSort/Light"]
+
+[node name="Light2D" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( -1160.11, -301.947 )
+scale = Vector2( 0.306797, 0.29852 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 1 )
+
+[node name="Light2D3" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( 383.144, -1728.34 )
+scale = Vector2( 0.306797, 0.29852 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 1 )
+
+[node name="Light2D4" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( 1662.7, -1752.31 )
+scale = Vector2( 0.306797, 0.29852 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 1 )
+
+[node name="Light2D5" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( 2693.53, -1737.33 )
+scale = Vector2( 0.306797, 0.29852 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 1 )
+
+[node name="Light2D6" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( 3979.08, -1728.34 )
+scale = Vector2( 0.306797, 0.29852 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 1 )
+
+[node name="Light2D7" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( 744.788, -1240.43 )
+scale = Vector2( 0.149307, 0.123804 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 0.741176 )
+
+[node name="Light2D9" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( 2847.81, -513.341 )
+scale = Vector2( 0.149307, 0.123804 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 0.694118 )
+
+[node name="Light2D10" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( 3292.57, -1219.73 )
+scale = Vector2( 0.149307, 0.123804 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 0.694118 )
+
+[node name="Light2D2" type="Light2D" parent="YSort/Light/Chandeliers and Candles"]
+position = Vector2( -1405.91, 215.071 )
+scale = Vector2( 0.306797, 0.29852 )
+texture = ExtResource( 18 )
+color = Color( 0.921569, 0.376471, 0.913725, 1 )
+
+[node name="Windows" type="Node2D" parent="YSort/Light"]
+
+[node name="fenster licht" type="Light2D" parent="YSort/Light/Windows"]
+position = Vector2( 636.594, -1744.62 )
+scale = Vector2( 1.13176, 1.96917 )
+texture = ExtResource( 16 )
+color = Color( 0.34902, 0.815686, 0.815686, 0.619608 )
+energy = 0.7
+
+[node name="fenster licht2" type="Light2D" parent="YSort/Light/Windows"]
+position = Vector2( 1408.85, -1737.89 )
+scale = Vector2( 1.13176, 1.96917 )
+texture = ExtResource( 16 )
+color = Color( 0.34902, 0.815686, 0.815686, 0.619608 )
+energy = 0.7
+
+[node name="fenster licht3" type="Light2D" parent="YSort/Light/Windows"]
+position = Vector2( 2950.36, -1737.89 )
+scale = Vector2( 1.13176, 1.96917 )
+texture = ExtResource( 16 )
+color = Color( 0.34902, 0.815686, 0.815686, 0.619608 )
+energy = 0.7
+
+[node name="fenster licht4" type="Light2D" parent="YSort/Light/Windows"]
+position = Vector2( 3699.89, -1726.57 )
+scale = Vector2( 1.13176, 1.96917 )
+texture = ExtResource( 16 )
+color = Color( 0.34902, 0.815686, 0.815686, 0.619608 )
+energy = 0.7
+
+[node name="fenster licht5" type="Light2D" parent="YSort/Light/Windows"]
+position = Vector2( 2195.15, -1194.83 )
+scale = Vector2( 1.13176, 1.96917 )
+texture = ExtResource( 16 )
+color = Color( 0.34902, 0.815686, 0.815686, 0.619608 )
+energy = 0.7
+
+[node name="fenster licht6" type="Light2D" parent="YSort/Light/Windows"]
+position = Vector2( -380.566, 81.7646 )
+scale = Vector2( 1.13176, 1.96917 )
+texture = ExtResource( 16 )
+color = Color( 0.34902, 0.815686, 0.815686, 1 )
+energy = 0.7
+
+[node name="Destroyables" type="Node2D" parent="YSort"]
+
+[node name="DestroyableObject" parent="YSort/Destroyables" instance=ExtResource( 10 )]
+position = Vector2( 27.1656, 20.646 )
+
+[node name="Topf" parent="YSort/Destroyables/DestroyableObject" index="2"]
+frame = 1
+
+[node name="DestroyableObject2" parent="YSort/Destroyables" instance=ExtResource( 10 )]
+position = Vector2( 1307.21, -1757.08 )
+
+[node name="Topf" parent="YSort/Destroyables/DestroyableObject2" index="2"]
+frame = 2
+
+[node name="DestroyableObject3" parent="YSort/Destroyables" instance=ExtResource( 10 )]
+position = Vector2( 2343.86, -1252.88 )
+
+[node name="Topf" parent="YSort/Destroyables/DestroyableObject3" index="2"]
+frame = 2
+
+[node name="DestroyableObject4" parent="YSort/Destroyables" instance=ExtResource( 10 )]
+position = Vector2( 2067.85, -1013.82 )
+
+[node name="DestroyableNest" parent="YSort/Destroyables" instance=ExtResource( 27 )]
+position = Vector2( 58.0845, -1186.62 )
+
+[node name="World Collision" type="StaticBody2D" parent="YSort"]
+modulate = Color( 1, 1, 1, 0.25098 )
+collision_layer = 18
+collision_mask = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/World Collision"]
+position = Vector2( -9.20996, -2.30249 )
+polygon = PoolVector2Array( -1539.51, -266.147, -1535.41, 511.289, -1020.54, 517.443, -1018.49, 258.981, 251.256, 254.879, 255.358, 521.545, 1792.51, 525.465, 1798.26, -761.624, 2548.69, -754.352, 2558.95, 519.494, 4099.46, 529.75, 4101.51, 261.032, 4348.27, 306.73, 4331, -49.0035, 4111.77, -9.73682, 4109.72, -776.916, 4354.02, -778.891, 4353.82, -1283.58, 4101.9, -1279.68, 4093.31, -1544.1, 3842.87, -1529.5, 3835.96, -1794.29, 2826.32, -1791.99, 2825.17, -1531.8, 2563.05, -1531.79, 2563.05, -1275.38, 1799.41, -1269.32, 1791.77, -1533.84, 1541.53, -1536.41, 1537.41, -1782.04, 516.928, -1780.47, 520.285, -1535.22, 261.512, -1531.79, 261.512, -1269.22, 0.999512, -1269.22, 0.999512, -762.557, 251.256, -766.659, 252.143, 3.95221, -1017.68, 2.80096, -1022.28, -255.077, -1508.74, -251.788, -1560.03, -327.685, -751.821, -1556.4, 676.619, -2716.71, 4414.17, -2330.63, 5391.92, 1378.49, -250.027, 1390.1, -1996.44, 329.093, -1760.23, -182.051 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PassThrough" type="StaticBody2D" parent="YSort"]
+modulate = Color( 1, 1, 1, 0.25098 )
+collision_layer = 8
+collision_mask = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/PassThrough"]
+position = Vector2( -9.20996, -2.30249 )
+polygon = PoolVector2Array( -1539.51, -266.147, -1478.79, 410.302, -1094.79, 434.302, -1038.79, 226.302, 305.21, 210.302, 321.21, 466.302, 1729.21, 474.302, 1745.21, -837.698, 2617.21, -845.698, 2649.21, 466.302, 4033.21, 466.302, 4033.21, 250.302, 4348.27, 306.73, 4331, -49.0035, 4025.21, 2.30249, 4025.21, -829.698, 4273.21, -829.698, 4265.21, -1213.7, 4057.21, -1221.7, 3857.21, -1333.7, 3793.21, -1509.7, 3745.21, -1661.7, 2929.21, -1629.7, 2825.17, -1531.8, 2729.21, -1365.7, 2585.21, -1165.7, 1737.21, -1165.7, 1585.21, -1357.7, 1513.21, -1493.7, 1409.21, -1693.7, 609.21, -1685.7, 545.21, -1517.7, 433.21, -1349.7, 261.512, -1269.22, 121.21, -1173.7, 249.21, -837.698, 369.21, -765.698, 305.21, 66.3025, -1038.79, 74.3025, -1086.79, -197.698, -1470.79, -165.698, -1560.03, -327.685, -751.821, -1556.4, 676.619, -2716.71, 4414.17, -2330.63, 5391.92, 1378.49, -250.027, 1390.1, -1996.44, 329.093, -1760.23, -182.051 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="World Collision2" type="Area2D" parent="YSort" groups=[
+"World",
+]]
+modulate = Color( 1, 1, 1, 0.25098 )
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 34 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/World Collision2"]
+position = Vector2( -9.20996, -2.30249 )
+polygon = PoolVector2Array( -1539.51, -266.147, -1535.41, 511.289, -1020.54, 517.443, -1018.49, 258.981, 251.256, 254.879, 255.358, 521.545, 1792.51, 525.465, 1798.26, -761.624, 2548.69, -754.352, 2558.95, 519.494, 4099.46, 529.75, 4101.51, 261.032, 4348.27, 306.73, 4331, -49.0035, 4111.77, -9.73682, 4109.72, -776.916, 4354.02, -778.891, 4353.82, -1283.58, 4101.9, -1279.68, 4093.31, -1544.1, 3842.87, -1529.5, 3835.96, -1794.29, 2826.32, -1791.99, 2825.17, -1531.8, 2563.05, -1531.79, 2563.05, -1275.38, 1799.41, -1269.32, 1791.77, -1533.84, 1541.53, -1536.41, 1537.41, -1782.04, 516.928, -1780.47, 520.285, -1535.22, 261.512, -1531.79, 261.512, -1269.22, 0.999512, -1269.22, 0.999512, -762.557, 251.256, -766.659, 252.143, 3.95221, -1017.68, 2.80096, -1022.28, -255.077, -1508.74, -251.788, -1560.03, -327.685, -751.821, -1556.4, 676.619, -2716.71, 4414.17, -2330.63, 5391.92, 1378.49, -250.027, 1390.1, -1996.44, 329.093, -1760.23, -182.051 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BulletMissSound" type="AudioStreamPlayer" parent="YSort/World Collision2"]
+stream = ExtResource( 35 )
+bus = "SFX"
+
+[node name="Player" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( -1248, 176 )
+
+[node name="Door" type="Node2D" parent="."]
+script = ExtResource( 25 )
+
+[node name="SceneTransition1" parent="Door" instance=ExtResource( 5 )]
+position = Vector2( -1585.09, 119.893 )
+rotation = 0.0
+
+[node name="SceneTransition" parent="Door" instance=ExtResource( 5 )]
+position = Vector2( 4127.67, 127.009 )
+scene_path = "res://src/Levels/FloatLevel.tscn"
+
+[node name="UI" parent="." instance=ExtResource( 7 )]
+
+[node name="Audio" type="Node2D" parent="."]
+position = Vector2( -222.953, -475.146 )
+
+[node name="Background" type="Node2D" parent="Audio"]
+
+[node name="Music" type="AudioStreamPlayer" parent="Audio/Background"]
+stream = ExtResource( 26 )
+volume_db = -20.0
+autoplay = true
+bus = "Music"
+
+[node name="Ambience" type="Node2D" parent="Audio"]
+
+[node name="Bubbles" type="AudioStreamPlayer2D" parent="Audio/Ambience"]
+position = Vector2( -145.78, 382.475 )
+stream = ExtResource( 30 )
+volume_db = -10.0
+autoplay = true
+attenuation = 3.0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Bubbles2" type="AudioStreamPlayer2D" parent="Audio/Ambience"]
+position = Vector2( 2400.26, -893.449 )
+stream = ExtResource( 30 )
+volume_db = -10.0
+autoplay = true
+attenuation = 3.0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Bubbles3" type="AudioStreamPlayer2D" parent="Audio/Ambience"]
+position = Vector2( 3951.12, -1418.15 )
+stream = ExtResource( 30 )
+volume_db = -10.0
+autoplay = true
+attenuation = 3.0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Dripping" type="AudioStreamPlayer2D" parent="Audio/Ambience"]
+position = Vector2( 1985.86, -471.769 )
+stream = ExtResource( 29 )
+volume_db = -5.0
+autoplay = true
+attenuation = 3.0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Guiding Arrows" type="Node2D" parent="."]
+position = Vector2( 66.7218, -31.1852 )
+
+[node name="guiding arrow2" type="Sprite" parent="Guiding Arrows"]
+position = Vector2( 1073.58, -1317.52 )
+texture = ExtResource( 11 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Nest" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 1528, 224 )
+MAX_ENEMY_COUNT = 1
+
+[node name="Nest2" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 3350.78, -635.912 )
+
+[node name="backgound deko" type="Node2D" parent="."]
+
+[node name="hintergrund_für_loch" type="Sprite" parent="backgound deko"]
+position = Vector2( 3708.55, -1920.41 )
+z_index = -1
+texture = ExtResource( 17 )
+
+[node name="wasser hg alge" type="Sprite" parent="backgound deko"]
+position = Vector2( 2173.08, -1412.63 )
+z_index = -1
+texture = ExtResource( 15 )
+
+[node name="wasser hg alge2" type="Sprite" parent="backgound deko"]
+position = Vector2( -387.922, -127.283 )
+z_index = -1
+texture = ExtResource( 15 )
+
+[node name="VFX" type="Node2D" parent="."]
+
+[node name="blasen" type="Particles2D" parent="VFX"]
+material = ExtResource( 24 )
+position = Vector2( -366.768, -94.4728 )
+speed_scale = 0.5
+process_material = ExtResource( 12 )
+texture = ExtResource( 19 )
+
+[node name="blasen 2" type="Particles2D" parent="VFX"]
+material = ExtResource( 24 )
+position = Vector2( 3723.92, -1893.21 )
+speed_scale = 0.5
+process_material = ExtResource( 12 )
+texture = ExtResource( 19 )
+
+[node name="blasen 3" type="Particles2D" parent="VFX"]
+material = ExtResource( 24 )
+position = Vector2( 2180.18, -1369.74 )
+speed_scale = 0.5
+process_material = ExtResource( 12 )
+texture = ExtResource( 19 )
+
+[node name="Particles2D" type="Particles2D" parent="VFX"]
+position = Vector2( 390.036, -1730.91 )
+process_material = ExtResource( 13 )
+
+[node name="Particles2D2" type="Particles2D" parent="VFX"]
+position = Vector2( 1666.15, -1744.13 )
+process_material = ExtResource( 13 )
+
+[node name="Particles2D3" type="Particles2D" parent="VFX"]
+position = Vector2( 2693.63, -1741.75 )
+process_material = ExtResource( 13 )
+
+[node name="Particles2D4" type="Particles2D" parent="VFX"]
+position = Vector2( 3985.11, -1734.61 )
+process_material = ExtResource( 13 )
+
+[node name="Particles2D6" type="Particles2D" parent="VFX"]
+position = Vector2( 738.132, -1264.9 )
+rotation = -1.52367
+process_material = ExtResource( 13 )
+
+[node name="Particles2D14" type="Particles2D" parent="VFX"]
+position = Vector2( 2851.85, -531.094 )
+rotation = -1.52367
+process_material = ExtResource( 13 )
+
+[node name="Particles2D15" type="Particles2D" parent="VFX"]
+position = Vector2( 3300.83, -1236 )
+rotation = -1.52367
+process_material = ExtResource( 13 )
+
+[node name="Particles2D7" type="Particles2D" parent="VFX"]
+position = Vector2( -1146.71, -317.437 )
+rotation = -1.52367
+process_material = ExtResource( 13 )
+
+[node name="Particles2D8" type="Particles2D" parent="VFX"]
+position = Vector2( -1403.73, 151.254 )
+rotation = -1.52367
+process_material = ExtResource( 13 )
+
+[node name="Particles2D9" type="Particles2D" parent="VFX"]
+position = Vector2( 662.294, -1738.58 )
+process_material = ExtResource( 14 )
+
+[node name="Particles2D10" type="Particles2D" parent="VFX"]
+position = Vector2( 1418.63, -1757.6 )
+process_material = ExtResource( 14 )
+
+[node name="Particles2D11" type="Particles2D" parent="VFX"]
+position = Vector2( 2969.41, -1774.25 )
+process_material = ExtResource( 14 )
+
+[node name="ObiliskSpawnPositions" parent="." instance=ExtResource( 20 )]
+
+[node name="PrayerPos" type="Position2D" parent="ObiliskSpawnPositions"]
+position = Vector2( 3924.17, -1077.21 )
+
+[node name="BulletManager" parent="." instance=ExtResource( 22 )]
+
+[node name="HookTargets" type="Node2D" parent="."]
+
+[node name="HookableTarget" parent="HookTargets" instance=ExtResource( 28 )]
+position = Vector2( 1424, -1224 )
+
+[node name="HookableTarget2" parent="HookTargets" instance=ExtResource( 28 )]
+position = Vector2( 2952, -1224 )
+
+[node name="HookableTarget3" parent="HookTargets" instance=ExtResource( 28 )]
+position = Vector2( 2952, 312 )
+[connection signal="area_entered" from="YSort/World Collision2" to="YSort/World Collision2" method="_on_World_Collision2_area_entered"]
+
+[editable path="YSort/Destroyables/DestroyableObject"]
+
+[editable path="YSort/Destroyables/DestroyableObject2"]
+
+[editable path="YSort/Destroyables/DestroyableObject3"]
+
+[editable path="HookTargets/HookableTarget"]
+
+[editable path="HookTargets/HookableTarget/MeleeEnemyHookTarget"]
+
+[editable path="HookTargets/HookableTarget2"]
+
+[editable path="HookTargets/HookableTarget3"]

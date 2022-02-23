@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shot_doesnt_work_hit_wall.wav-fab543f04188cb184e62cbe2a43bb8e0.sample"
+
+[deps]
+
+source_file="res://Audio/Player/Shot/shot_doesnt_work_hit_wall.wav"
+dest_files=[ "res://.import/shot_doesnt_work_hit_wall.wav-fab543f04188cb184e62cbe2a43bb8e0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

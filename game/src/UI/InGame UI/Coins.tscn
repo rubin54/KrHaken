@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/environment/Objects/Currency.png" type="Texture" id=1]
+
+[node name="Coins" type="Label"]
+margin_left = 178.76
+margin_top = 26.6968
+margin_right = 225.76
+margin_bottom = 40.6968
+rect_scale = Vector2( 5, 5 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -15.3215
+margin_top = -2.39058
+margin_right = 566.678
+margin_bottom = 630.609
+rect_scale = Vector2( 0.0256402, 0.0256402 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

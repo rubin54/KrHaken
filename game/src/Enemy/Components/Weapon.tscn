@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/environment/Objects/kerzenständer_1.png" type="Texture" id=2]
+
+[node name="Weapon" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+
+[node name="EndOfGun" type="Position2D" parent="."]
+
+[node name="AttackCooldown" type="Timer" parent="."]

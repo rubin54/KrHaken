@@ -1,0 +1,5 @@
+Godot Engine v3.2.3.stable.official - https://godotengine.org
+OpenGL ES 3.0 Renderer: GeForce GTX 1060 6GB/PCIe/SSE2
+ 
+**WARNING**: No small icon found, reusing 256x256 @32768 icon!
+   At: platform/windows/os_windows.cpp:3007:set_native_icon() - No small icon found, reusing 256x256 @32768 icon!

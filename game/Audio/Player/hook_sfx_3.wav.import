@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hook_sfx_3.wav-a1784d30c41a72709954bcdce5b3749a.sample"
+
+[deps]
+
+source_file="res://Audio/Player/hook_sfx_3.wav"
+dest_files=[ "res://.import/hook_sfx_3.wav-a1784d30c41a72709954bcdce5b3749a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

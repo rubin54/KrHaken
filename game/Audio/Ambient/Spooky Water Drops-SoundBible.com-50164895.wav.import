@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Spooky Water Drops-SoundBible.com-50164895.wav-f409424a22c91418e6ee8b204b18eeab.sample"
+
+[deps]
+
+source_file="res://Audio/Ambient/Spooky Water Drops-SoundBible.com-50164895.wav"
+dest_files=[ "res://.import/Spooky Water Drops-SoundBible.com-50164895.wav-f409424a22c91418e6ee8b204b18eeab.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

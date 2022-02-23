@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/tilesets/prototype.tres" type="TileSet" id=1]
+[ext_resource path="res://src/Objects/HookTargetPullable/HookTargetPullable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Objects/HookTarget.tscn" type="PackedScene" id=3]
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 40, 40 )
+collision_layer = 2
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -196182, 1, 0, -196181, 1, 0, -196180, 1, 0, -196179, 1, 0, -196178, 1, 0, -196177, 1, 0, -196176, 1, 0, -196175, 1, 0, -196174, 1, 0, 393623, 1, 0, 393624, 1, 0, 393625, 1, 0, 393626, 1, 0, 393627, 1, 0, 393628, 1, 0, 393629, 1, 0, 1048952, 3, 0, 1048953, 3, 0, 1114488, 3, 0, 1114489, 3, 0 )
+
+[node name="HookTarget" parent="." instance=ExtResource( 3 )]
+position = Vector2( 263.144, 150.885 )
+
+[node name="HookTarget2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -9.30643, 150.885 )
+
+[node name="PullableTarget" parent="." instance=ExtResource( 2 )]
+position = Vector2( 42.1157, 467.246 )

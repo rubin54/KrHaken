@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Objects/HookTargetPullable/MeleeEnemyHookTarget.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Objects/Special tiles/HookableTarget.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 64, 24 )
+
+[node name="HookableTarget" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="block" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 96 )
+shape = SubResource( 1 )
+
+[node name="MeleeEnemyHookTarget" parent="." instance=ExtResource( 2 )]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="hooked_onto_from" from="MeleeEnemyHookTarget" to="." method="_on_MeleeEnemyHookTarget_hooked_onto_from"]

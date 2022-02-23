@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hook_back_sfx.wav-809a0096c7dc87bf46b5491458c6be39.sample"
+
+[deps]
+
+source_file="res://Audio/Player/hook_back_sfx.wav"
+dest_files=[ "res://.import/hook_back_sfx.wav-809a0096c7dc87bf46b5491458c6be39.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

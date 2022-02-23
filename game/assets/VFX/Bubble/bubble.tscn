@@ -1,0 +1,113 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Audio/SFX für VFX/Underwater_Pool-Mike_Koenig-355864284.wav" type="AudioStream" id=1]
+[ext_resource path="res://assets/VFX/Bubble/bubble_sprite2.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=2]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.579666, -57.0933 ), 0.0, 0.0, 0, 0, Vector2( 0.992321, 80.4009 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0 ), 0.0, 0.46688, 0, 1, Vector2( 0.98315, 0.459013 ), 0.46688, 21.0843, 1, 1, Vector2( 1, 0.814274 ), 21.0843, 0.0, 1, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.996906, 0.876339 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 2
+emission_box_extents = Vector3( 1200, 500, 1 )
+flag_disable_z = true
+direction = Vector3( 100, 100, 0 )
+spread = 19.9
+gravity = Vector3( 0, -50, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 1.0
+damping = 1.0
+damping_random = 0.38
+angle_random = 0.59
+angle_curve = SubResource( 3 )
+scale_random = 0.64
+scale_curve = SubResource( 7 )
+anim_speed_curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 1
+emission_sphere_radius = 150.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 40.0
+angular_velocity = 18.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 10.0
+radial_accel = 10.0
+damping = 22.0
+angle = 45.0
+angle_random = 1.0
+color = Color( 0.803922, 0.796078, 1, 1 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+margin_left = -18.6684
+margin_top = -26.0369
+margin_right = 21.3316
+margin_bottom = 13.9631
+color = Color( 0.145098, 0.133333, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bubble" type="Particles2D" parent="."]
+material = SubResource( 1 )
+position = Vector2( 0, -0.0269527 )
+scale = Vector2( 0.01, 0.01 )
+amount = 13
+lifetime = 8.0
+preprocess = 18.0
+speed_scale = 0.5
+randomness = 1.0
+process_material = SubResource( 8 )
+texture = ExtResource( 3 )
+
+[node name="bubble_spread" type="Particles2D" parent="."]
+visible = false
+position = Vector2( 3.78129, -6.93499 )
+scale = Vector2( 0.003, 0.003 )
+amount = 5
+lifetime = 1.6
+speed_scale = 4.37
+explosiveness = 1.0
+fixed_fps = 12
+visibility_rect = Rect2( -500, -500, 1000, 1000 )
+process_material = SubResource( 9 )
+texture = ExtResource( 3 )
+
+[node name="BubbleSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+attenuation = 5.0
+bus = "SFX"
+
+[node name="BubblePlopp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+attenuation = 5.0
+bus = "SFX"

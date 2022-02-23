@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/UI/UI_Scenes/IntroCutscene.anim" type="Animation" id=1]
+[ext_resource path="res://Fonts/Feathercut-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://src/UI/UI_Scenes/CutsceneIntro.gd" type="Script" id=3]
+[ext_resource path="res://assets/CutScene/CutsceneBackdrop.png" type="Texture" id=4]
+[ext_resource path="res://Audio/Ambient/Sea Waves-SoundBible.com-946156036.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/CutScene/vignetteBlue.png" type="Texture" id=14]
+[ext_resource path="res://Audio/Player/player_dying_sound.wav" type="AudioStream" id=15]
+
+[sub_resource type="DynamicFont" id=1]
+size = 67
+font_data = ExtResource( 2 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 39.75
+margin_bottom = 9.0
+rect_scale = Vector2( 48.2669, 119.853 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "intro"
+anims/intro = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="RichTextLabel" type="Label" parent="."]
+margin_left = 516.326
+margin_top = 463.112
+margin_right = 1418.33
+margin_bottom = 613.112
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.352941, 0.580392, 0.521569, 0 )
+text = "[________]
+to skip"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vignette" type="Sprite" parent="."]
+modulate = Color( 0.913725, 0.909804, 0.92549, 0 )
+position = Vector2( 982.1, 563.229 )
+scale = Vector2( 1.0328, 1.0328 )
+texture = ExtResource( 14 )
+
+[node name="heartbeat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+bus = "SFX"
+
+[node name="wave" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+bus = "SFX"
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

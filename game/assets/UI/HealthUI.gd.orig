@@ -1,0 +1,51 @@
+extends Control
+
+var hearts = 4 setget set_hearts
+var max_hearts = 4 setget set_max_hearts
+
+onready var heartUIFull = $HeartUIFull
+onready var heartUIEmpty = $HeartUIEmpty
+
+func set_hearts(value):
+	hearts = clamp(value,0,max_hearts)
+	if heartUIFull != null:
+		heartUIFull.rect_size.x = hearts * 15   #15 cause of  size of the texture
+
+func set_max_hearts(value):
+	max_hearts = max(value,1)
+	self.hearts = min(hearts,max_hearts)
+	if heartUIEmpty != null:
+		heartUIEmpty.rect_size.x = max_hearts * 15
+	
+func _ready():
+	self.max_hearts = Stats.max_health
+	self.hearts = Stats.health
+# warning-ignore:return_value_discarded
+	Stats.connect("health_changed",self,"set_hearts")
+# warning-ignore:return_value_discarded
+	Stats.connect("max_health_changed",self,"set_max_hearts")
+
+ #$sprite.visible = not $sprite.visible
+
+func _process(_delta):    # nicht schön aber es funktioniert.
+<<<<<<< working copy
+	Stats.handle_ui_health()
+=======
+	if Stats.health == 5:
+		pass # ay lmao
+	elif Stats.health == 4:
+		$ui_platzhalter/auge_a.visible = false
+		$Node2D/Spritea.visible = true
+	elif Stats.health == 3:
+		$ui_platzhalter/auge_b.visible = false
+		$Node2D/Spriteb.visible = true
+	elif Stats.health == 2:
+		$ui_platzhalter/auge_c.visible = false
+		$Node2D/Spritec.visible = true
+	elif Stats.health == 1:
+		$ui_platzhalter/auge_d.visible = false
+		$Node2D/Sprited.visible = true
+	else:
+		$ui_platzhalter/auge_e.visible = false
+		$Node2D/Spritee.visible = true
+>>>>>>> merge rev

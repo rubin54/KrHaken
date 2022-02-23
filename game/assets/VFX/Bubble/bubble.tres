@@ -1,0 +1,43 @@
+[gd_resource type="ParticlesMaterial" load_steps=7 format=2]
+
+[sub_resource type="Curve" id=1]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.579666, -57.0933 ), 0.0, 0.0, 0, 0, Vector2( 0.992321, 80.4009 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 0.46688, 0, 1, Vector2( 0.98315, 0.459013 ), 0.46688, 21.0843, 1, 1, Vector2( 1, 0.814274 ), 21.0843, 0.0, 1, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.996906, 0.876339 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[resource]
+resource_local_to_scene = true
+emission_shape = 2
+emission_box_extents = Vector3( 50, 50, 1 )
+flag_disable_z = true
+direction = Vector3( 100, 100, 0 )
+spread = 19.9
+gravity = Vector3( 0, -20, 0 )
+angular_velocity = -0.96
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 1.0
+damping = 1.0
+damping_random = 0.38
+angle_random = 0.59
+angle_curve = SubResource( 2 )
+scale = 0.05
+scale_random = 0.08
+scale_curve = SubResource( 6 )
+color = Color( 0.211765, 0.647059, 0.627451, 0.913725 )
+anim_speed_curve = SubResource( 4 )

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Enemy/Dummy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Enemy/DummySpawner.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 24.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "Spawn"
+loop = true
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_on_Dummy_died"
+} ]
+}
+
+[node name="DummySpawner" type="Node"]
+script = ExtResource( 2 )
+MAX_ENEMY_COUNT = 6
+
+[node name="Spawn" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Spawn = SubResource( 2 )
+
+[node name="Dummy" parent="." instance=ExtResource( 1 )]
+
+[editable path="Dummy"]

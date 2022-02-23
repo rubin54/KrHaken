@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/VFX/Hook/HookSpark.tres" type="Material" id=1]
+[ext_resource path="res://assets/VFX/Hook/glitter.png" type="Texture" id=2]
+
+[node name="HookSparks" type="Node2D"]
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 18
+lifetime = 0.2
+speed_scale = 0.7
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2( -40, -40, 80, 80 )
+process_material = ExtResource( 1 )
+texture = ExtResource( 2 )

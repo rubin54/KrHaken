@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ranged_enemy_walk_short_.wav-1428327d71dd48b07f5bee90ff0ddd73.sample"
+
+[deps]
+
+source_file="res://Audio/Monster/ranged/ranged_enemy_walk_short_.wav"
+dest_files=[ "res://.import/ranged_enemy_walk_short_.wav-1428327d71dd48b07f5bee90ff0ddd73.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

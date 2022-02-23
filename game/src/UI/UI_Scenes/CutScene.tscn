@@ -1,0 +1,139 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://FrameControl.gd" type="Script" id=1]
+[ext_resource path="res://src/UI/UI_Scenes/Button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/Feathercut-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/CutScene/frame 2.png" type="Texture" id=4]
+[ext_resource path="res://Audio/Ambient/Shipwreckers Fight Music V1 (xandro ft. eendeeloops).ogg" type="AudioStream" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 2
+outline_color = Color( 0.372549, 0.105882, 0.54902, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Text_Frame1"
+
+[sub_resource type="Animation" id=3]
+resource_name = "Text_Frame2"
+
+[node name="FrameControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Frames" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.00012207
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Next" parent="." instance=ExtResource( 2 )]
+margin_left = 1680.0
+margin_top = 1008.0
+margin_right = 1799.0
+margin_bottom = 1043.0
+rect_scale = Vector2( 2, 2 )
+
+[node name="Label" type="Label" parent="Next"]
+margin_left = -116.0
+margin_top = -25.5
+margin_right = 236.0
+margin_bottom = 62.5
+custom_fonts/font = SubResource( 1 )
+text = "Next"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="next_button" type="Button" parent="Next"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -6.10352e-05
+margin_right = -6.10352e-05
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Previous" parent="." instance=ExtResource( 2 )]
+margin_top = 1008.0
+margin_bottom = 1043.0
+rect_scale = Vector2( 2, 2 )
+
+[node name="Label2" type="Label" parent="Previous"]
+margin_left = -116.0
+margin_top = -25.0
+margin_right = 236.0
+margin_bottom = 63.0
+custom_fonts/font = SubResource( 1 )
+text = "Previous"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="previous_button" type="Button" parent="Previous"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back to Menu" parent="." instance=ExtResource( 2 )]
+rect_scale = Vector2( 2, 2 )
+reference_path = "res://src/UI/UI_Scenes/TitleScreen.tscn"
+
+[node name="Label2" type="Label" parent="Back to Menu"]
+margin_left = -116.96
+margin_top = -25.7288
+margin_right = 235.04
+margin_bottom = 62.2712
+custom_fonts/font = SubResource( 1 )
+text = "Back to Menu"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Text_Frame1"
+anims/Text_Frame1 = SubResource( 2 )
+anims/Text_Frame2 = SubResource( 3 )
+
+[node name="Count" type="Label" parent="."]
+visible = false
+margin_left = 1480.0
+margin_top = -64.0
+margin_right = 1994.0
+margin_bottom = 24.0
+rect_scale = Vector2( 1.58161, 2.23317 )
+custom_fonts/font = SubResource( 1 )
+text = "1/10"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+[connection signal="pressed" from="Next/next_button" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="Previous/previous_button" to="." method="_on_previous_button_pressed"]

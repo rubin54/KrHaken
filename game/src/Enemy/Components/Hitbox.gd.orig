@@ -1,0 +1,16 @@
+extends Area2D
+
+export var damage = 1
+
+var knockback_vector = Vector2.ZERO
+
+
+func _on_HurtBox_area_entered(_area):
+	print("jesus1")
+	set_collision_mask_bit(17, 0)
+	$LayerSwapH.start()
+
+
+func _on_LayerSwapH_timeout():
+	print("jesusOG")
+	set_collision_mask_bit(17, 131072)

@@ -1,0 +1,51 @@
+extends Area2D
+class_name Bullet
+
+var cursorFullAmmo = load("res://assets/UI/Crosshair/eye_of_the_beholder 64x64_active.png")
+
+export (int) var speed = 10
+<<<<<<< working copy
+=======
+var spawnDistance = 100
+>>>>>>> merge rev
+
+onready var kill_timer = $KillTimer
+<<<<<<< working copy
+=======
+var ammo = preload("res://src/Objects/PickUps/Ammo.tscn")
+>>>>>>> merge rev
+
+var direction := Vector2.ZERO
+var team: int = -1
+
+func _ready():
+	kill_timer.start()
+
+func _physics_process(_delta):
+	if direction != Vector2.ZERO:
+		var velocity = direction * speed
+		global_position += velocity
+
+func set_direction(direction := Vector2.ZERO):
+	self.direction = direction
+	rotation += direction.angle()
+
+func _on_KillTimer_timeout():
+	Input.set_custom_mouse_cursor(cursorFullAmmo,Input.CURSOR_ARROW,Vector2())
+	queue_free()
+	Stats.update_ammo(1)
+	
+func _on_Bullet_area_entered(area):
+	if area.is_in_group("Enemy"):
+		queue_free()
+<<<<<<< working copy
+=======
+	else:
+		queue_free()
+		spawn(ammo)
+
+func spawn(item):
+	var loot = item.instance()
+	$"/root".call_deferred("add_child",loot)
+	loot.global_position = global_position + Vector2.RIGHT.rotated(randf()*6) * spawnDistance #
+>>>>>>> merge rev

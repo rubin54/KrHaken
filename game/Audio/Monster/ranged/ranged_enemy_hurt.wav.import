@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ranged_enemy_hurt.wav-6c37f78758d78cff5563e7d3955974b8.sample"
+
+[deps]
+
+source_file="res://Audio/Monster/ranged/ranged_enemy_hurt.wav"
+dest_files=[ "res://.import/ranged_enemy_hurt.wav-6c37f78758d78cff5563e7d3955974b8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

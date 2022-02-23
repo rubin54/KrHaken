@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Shader/Water_shader/disk_mask.png" type="Texture" id=1]
+[ext_resource path="res://Shader/Water_shader/water_diffuse.png" type="Texture" id=2]
+[ext_resource path="res://Shader/Water_shader/water_normal.png" type="Texture" id=3]
+[ext_resource path="res://Shader/Water_shader/water_2D_material.tres" type="Material" id=4]
+[ext_resource path="res://Shader/Water_shader/Water2D.gd" type="Script" id=5]
+[ext_resource path="res://Water.tres" type="Material" id=6]
+
+[node name="Node2D" type="Node2D"]
+material = ExtResource( 6 )
+position = Vector2( -2.30249, -2.30249 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.105882, 0.054902, 0.298039, 1 )
+material = ExtResource( 4 )
+position = Vector2( 960, 539.186 )
+scale = Vector2( 20, 20 )
+texture = ExtResource( 2 )
+normal_map = ExtResource( 3 )
+script = ExtResource( 5 )
+
+[node name="Light2D" type="Light2D" parent="Sprite"]
+visible = false
+position = Vector2( 58.0536, 25.3456 )
+scale = Vector2( 0.204, 0.356 )
+texture = ExtResource( 1 )
+texture_scale = 1.54
+color = Color( 0.0196078, 0.894118, 0.411765, 1 )
+energy = 1.1
+range_height = 66.4
+
+[node name="Light2D2" type="Light2D" parent="Sprite"]
+visible = false
+position = Vector2( -78.4269, -61.7289 )
+scale = Vector2( 0.204, 0.356 )
+texture = ExtResource( 1 )
+texture_scale = 1.54
+color = Color( 0.0196078, 0.894118, 0.411765, 1 )
+energy = 1.1
+range_height = 66.4
+[connection signal="item_rect_changed" from="Sprite" to="Sprite" method="_on_item_rect_changed"]

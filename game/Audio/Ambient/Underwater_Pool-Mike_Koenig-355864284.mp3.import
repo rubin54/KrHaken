@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Underwater_Pool-Mike_Koenig-355864284.mp3-f8f504391f224e56fbfaae588f9e4d17.mp3str"
+
+[deps]
+
+source_file="res://Audio/Ambient/Underwater_Pool-Mike_Koenig-355864284.mp3"
+dest_files=[ "res://.import/Underwater_Pool-Mike_Koenig-355864284.mp3-f8f504391f224e56fbfaae588f9e4d17.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

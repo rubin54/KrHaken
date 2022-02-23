@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/monster_hurt_1.wav-7e9a7fb2390cac4d17989a2c34822146.sample"
+
+[deps]
+
+source_file="res://Audio/Monster/Melee/monster_hurt_1.wav"
+dest_files=[ "res://.import/monster_hurt_1.wav-7e9a7fb2390cac4d17989a2c34822146.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

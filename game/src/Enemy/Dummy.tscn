@@ -1,0 +1,117 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/environment/Objects/Dummy Sprite.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://src/Player/Components/HurtBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Enemy/Dummy.gd" type="Script" id=3]
+[ext_resource path="res://src/Objects/HookTargetPullable/MeleeEnemyHookTarget.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/characters/player/shadow.png" type="Texture" id=5]
+[ext_resource path="res://Audio/Miscellanious/Crumbling-Mike_Koenig-1123041125.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/Monster/shot_crystalizes_enemy_sound.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/environment/Objects/dummy_freeze.png" type="Texture" id=8]
+[ext_resource path="res://assets/environment/Objects/tutorial_dummy.png" type="Texture" id=9]
+[ext_resource path="res://Shader/HighlightMaterial.tres" type="Material" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 9 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 233.004, 273.394 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 11.348, 10 )
+
+[sub_resource type="Animation" id=4]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("KinematicBody2D/Sprite/tutorial_freeze_effect_einzeln:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+
+[node name="Dummy" type="Node2D" groups=[
+"Enemy",
+]]
+scale = Vector2( 1.63807, 1.63807 )
+script = ExtResource( 3 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+
+[node name="Sprite" type="AnimatedSprite" parent="KinematicBody2D"]
+scale = Vector2( 0.495475, 0.485098 )
+frames = ExtResource( 1 )
+animation = "Dummy"
+frame = 1
+
+[node name="MousesDetector" type="Area2D" parent="KinematicBody2D/Sprite"]
+
+[node name="Aura" type="Sprite" parent="KinematicBody2D/Sprite/MousesDetector"]
+visible = false
+material = ExtResource( 10 )
+texture = ExtResource( 9 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D/Sprite/MousesDetector"]
+visible = false
+material = ExtResource( 10 )
+scale = Vector2( 0.999041, 1.02041 )
+frames = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/Sprite/MousesDetector"]
+modulate = Color( 0.356863, 0.0117647, 0.854902, 0.360784 )
+shape = SubResource( 2 )
+
+[node name="tutorial_freeze_effect_einzeln" type="Sprite" parent="KinematicBody2D/Sprite"]
+visible = false
+scale = Vector2( 0.999041, 1.02041 )
+texture = ExtResource( 8 )
+
+[node name="shadow" type="Sprite" parent="KinematicBody2D/Sprite"]
+show_behind_parent = true
+position = Vector2( -16.3866, 219.98 )
+scale = Vector2( 1.67174, 1.32192 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+visible = false
+position = Vector2( 0, 15.0597 )
+scale = Vector2( 5.77763, 8.92067 )
+shape = SubResource( 3 )
+
+[node name="HurtBox" parent="KinematicBody2D" groups=[
+"Enemy",
+] instance=ExtResource( 2 )]
+visible = false
+scale = Vector2( 3.62197, 3.62197 )
+
+[node name="MeleeEnemyHookTarget" parent="KinematicBody2D" instance=ExtResource( 4 )]
+visible = false
+scale = Vector2( 2.92928, 2.92928 )
+collision_layer = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Frozen_icon = SubResource( 4 )
+
+[node name="crumble" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+
+[node name="FrozenSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Layer" type="Timer" parent="."]
+one_shot = true
+[connection signal="mouse_entered" from="KinematicBody2D/Sprite/MousesDetector" to="." method="_on_MousesDetector_mouse_entered"]
+[connection signal="mouse_exited" from="KinematicBody2D/Sprite/MousesDetector" to="." method="_on_MousesDetector_mouse_exited"]
+[connection signal="area_entered" from="KinematicBody2D/HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="hooked_onto_from" from="KinematicBody2D/MeleeEnemyHookTarget" to="." method="_on_MeleeEnemyHookTarget_hooked_onto_from"]
+[connection signal="timeout" from="Layer" to="." method="_on_Layer_timeout"]

@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/tilesets/specialtiles/specialtile_auge_leer.png" type="Texture" id=1]
+[ext_resource path="res://assets/tilesets/specialtiles/specialtile_auge_pupille.png" type="Texture" id=2]
+[ext_resource path="res://Audio/SFX für VFX/Apple_Bite-Simon_Craggs-1683647397.wav" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "tracking_eye"
+length = 30.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("specialtile_auge_pupille:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5.2, 5.4, 10.3, 10.5, 15.8, 16, 21.2, 21.4, 29.3, 29.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 0.857772, 0.913862 ), Vector2( 0.857772, 0.913862 ), Vector2( 0.840695, 1.0769 ), Vector2( 0.840695, 1.0769 ), Vector2( 1.19148, 1.11724 ), Vector2( 1.19148, 1.11724 ), Vector2( 1.1368, 0.95946 ), Vector2( 1.1368, 0.95946 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("specialtile_auge_pupille:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 5.2, 5.4, 5.5, 10.3, 10.5, 10.6, 15.8, 16, 16.1, 21.2, 21.4, 21.5, 29.3, 29.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -12.0513, 8.46153 ), Vector2( -12.0513, 8.46153 ), Vector2( 6.15382, -2.5641 ), Vector2( 4.10252, -1.02565 ), Vector2( 4.10252, -1.02565 ), Vector2( 8.3398, 18.3041 ), Vector2( 8.34, 17.184 ), Vector2( 8.34, 17.184 ), Vector2( -36.5602, 23.4678 ), Vector2( -35.634, 23.853 ), Vector2( -35.634, 23.853 ), Vector2( -29.5621, 3.27236 ), Vector2( -30.244, 4.782 ), Vector2( -30.244, 4.782 ), Vector2( -12.0513, 8.46153 ) ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("EyeSound")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [  ],
+"times": PoolRealArray(  )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("EyeSound:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 5.3, 10.2, 15.8, 21.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, true, true ]
+}
+
+[node name="augen_tile" type="Node2D"]
+
+[node name="specialtile_auge_leer" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="specialtile_auge_pupille" type="Sprite" parent="."]
+position = Vector2( -12.0513, 8.46153 )
+texture = ExtResource( 2 )
+region_rect = Rect2( -60, -60, -60, -60 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "tracking_eye"
+method_call_mode = 1
+anims/tracking_eye = SubResource( 1 )
+
+[node name="EyeSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+pitch_scale = 2.0
+attenuation = 3.0
+bus = "SFX"

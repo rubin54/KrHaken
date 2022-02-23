@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Shader/Highlight.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/aura_width = 6.0
+shader_param/aura_color = Color( 0.145098, 0.333333, 0.678431, 0.443137 )

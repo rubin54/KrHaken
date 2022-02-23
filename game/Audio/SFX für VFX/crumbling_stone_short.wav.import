@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/crumbling_stone_short.wav-3e861b0ce95814df8adeac6fda0a400c.sample"
+
+[deps]
+
+source_file="res://Audio/SFX für VFX/crumbling_stone_short.wav"
+dest_files=[ "res://.import/crumbling_stone_short.wav-3e861b0ce95814df8adeac6fda0a400c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

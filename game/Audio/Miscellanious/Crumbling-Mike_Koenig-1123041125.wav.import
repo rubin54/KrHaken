@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Crumbling-Mike_Koenig-1123041125.wav-29b2462a636737da3531fb4d54bb4447.sample"
+
+[deps]
+
+source_file="res://Audio/Miscellanious/Crumbling-Mike_Koenig-1123041125.wav"
+dest_files=[ "res://.import/Crumbling-Mike_Koenig-1123041125.wav-29b2462a636737da3531fb4d54bb4447.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

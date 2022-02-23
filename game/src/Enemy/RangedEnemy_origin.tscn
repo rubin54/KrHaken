@@ -1,0 +1,192 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://src/Combat/DamageSource.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scripts/Enemy/RangedEnemy.gd" type="Script" id=2]
+[ext_resource path="res://src/Enemy/Components/TargetDetectorRange.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Player/WanderController.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/characters/Monster/Ranged/RangedEnemyAnimations.tres" type="SpriteFrames" id=5]
+[ext_resource path="res://src/Player/HurtBox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Player/SoftCollision.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Audio/Monster/shot_crystalizes_enemy_sound.wav" type="AudioStream" id=8]
+[ext_resource path="res://Audio/Monster/monster_destroyed_sound.wav" type="AudioStream" id=9]
+[ext_resource path="res://Audio/SFX für VFX/-monster_spawn_kraken_egg_burst_SWAPPED_SOUNDS.wav" type="AudioStream" id=10]
+[ext_resource path="res://Audio/Monster/ranged/ranged_enemy_hurt.wav" type="AudioStream" id=11]
+[ext_resource path="res://Audio/Monster/ranged/ranged_enemy_walk_short_.wav" type="AudioStream" id=12]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 0.790985
+
+[sub_resource type="Animation" id=2]
+resource_name = "die"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hurt:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 2.9, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.0196078, 0.294118, 0.87451, 1 ), Color( 1, 1, 1, 1 ), Color( 0.0627451, 0.0588235, 0.552941, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "spawn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Spawnsound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 85.4159
+
+[node name="RangedEnemy" type="KinematicBody2D"]
+modulate = Color( 0.933053, 0.932773, 0.968067, 1 )
+collision_layer = 16
+collision_mask = 27
+script = ExtResource( 2 )
+ACCELERATION = 400
+MAX_SPEED = 500
+FRICTION = 2000
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.698334, -37.7105 )
+shape = SubResource( 1 )
+
+[node name="WanderController" parent="." instance=ExtResource( 4 )]
+
+[node name="TargetDetectorRange" parent="." instance=ExtResource( 3 )]
+scale = Vector2( 2.69415, 2.69415 )
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 5 )
+animation = "ranged_idle_down"
+frame = 5
+playing = true
+
+[node name="HurtBox" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 6 )]
+
+[node name="SoftCollision" parent="." instance=ExtResource( 7 )]
+
+[node name="Freeze" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spawn"
+anims/die = SubResource( 2 )
+anims/frozen = SubResource( 3 )
+anims/spawn = SubResource( 4 )
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -10.0
+bus = "SFX"
+
+[node name="FrozenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -10.0
+bus = "SFX"
+
+[node name="Spawnsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -10.0
+bus = "SFX"
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+pitch_scale = 0.25
+bus = "SFX"
+
+[node name="walk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+pitch_scale = 0.49
+bus = "SFX"
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
+
+[node name="DamageSource" parent="." instance=ExtResource( 1 )]
+collision_layer = 2147483648
+collision_mask = 131072
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageSource"]
+shape = SubResource( 5 )
+[connection signal="timeout" from="BulletTimer" to="." method="_on_Timer_timeout"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="timeout" from="Freeze" to="." method="_on_Freeze_timeout"]
+
+[editable path="HurtBox"]
+
+[editable path="SoftCollision"]
+
+[editable path="DamageSource"]

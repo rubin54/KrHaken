@@ -1,0 +1,44 @@
+extends Node2D
+
+onready var bullet_manager = $BulletManager
+
+func _ready():
+	GlobalSignals.connect("bullet_fired", bullet_manager, "handle_bullet_spawned")
+	GlobalSignals.obilisk_activated = false
+
+func _process(delta):
+	Stats.load_score()
+	$UI/Coins.text = "Coins: " + str(Stats.coins)
+	input()
+	
+
+func input():
+	if Input.is_action_just_pressed("ui_down"):
+		$YSort/Tutorial/wasd_stone/Area2D/s.visible = true
+	elif Input.is_action_just_pressed("ui_up"):
+		$YSort/Tutorial/wasd_stone/Area2D/w.visible = true
+	elif Input.is_action_just_pressed("ui_left"):
+		$YSort/Tutorial/wasd_stone/Area2D/a.visible = true
+	elif Input.is_action_just_pressed("ui_right"):
+		$YSort/Tutorial/wasd_stone/Area2D/d.visible = true
+	elif Input.is_action_just_pressed("shoot"):
+		$YSort/Tutorial/Core_Mechanics/Shoot/tutorial_mouse_click/shoot.visible = true
+	elif Input.is_action_just_pressed("hook"):
+		$YSort/Tutorial/Core_Mechanics/Hook/tutorial_mouse_click/hook2.visible = true
+	elif Input.is_action_just_pressed("attack"):
+		$YSort/Tutorial/Core_Mechanics/Melee/tutorial_mouse_click2/melee.visible = true
+		$YSort/Tutorial/Core_Mechanics/Melee/tutorial_melee/melee.visible = true
+		$YSort/Tutorial/Core_Mechanics/Melee/tutorial_mouse_click3/melee.visible = true
+		$YSort/Tutorial/Core_Mechanics/Melee/tutorial_melee2/melee.visible = true
+		
+func _on_Timer_timeout():
+	$YSort/Tutorial/wasd_stone/Area2D/s.visible = false
+	$YSort/Tutorial/wasd_stone/Area2D/w.visible = false
+	$YSort/Tutorial/wasd_stone/Area2D/a.visible = false
+	$YSort/Tutorial/wasd_stone/Area2D/d.visible = false
+	$YSort/Tutorial/Core_Mechanics/Shoot/tutorial_mouse_click/shoot.visible = false
+	$YSort/Tutorial/Core_Mechanics/Hook/tutorial_mouse_click/hook2.visible = false
+	$YSort/Tutorial/Core_Mechanics/Melee/tutorial_mouse_click2/melee.visible = false
+	$YSort/Tutorial/Core_Mechanics/Melee/tutorial_melee/melee.visible = false
+	$YSort/Tutorial/Core_Mechanics/Melee/tutorial_mouse_click3/melee.visible = false
+	$YSort/Tutorial/Core_Mechanics/Melee/tutorial_melee2/melee.visible = false

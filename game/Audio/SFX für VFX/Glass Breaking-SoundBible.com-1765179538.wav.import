@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Glass Breaking-SoundBible.com-1765179538.wav-e2b85e95803e7560cf8cdba0445dbb3f.sample"
+
+[deps]
+
+source_file="res://Audio/SFX für VFX/Glass Breaking-SoundBible.com-1765179538.wav"
+dest_files=[ "res://.import/Glass Breaking-SoundBible.com-1765179538.wav-e2b85e95803e7560cf8cdba0445dbb3f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

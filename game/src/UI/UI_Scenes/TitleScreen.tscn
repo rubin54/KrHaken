@@ -1,0 +1,394 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://src/UI/UI_Scenes/TitleScreen.gd" type="Script" id=1]
+[ext_resource path="res://src/UI/UI_Scenes/Button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/UI/Title/neues_keyart.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/Title/S4G_Logo.png" type="Texture" id=4]
+[ext_resource path="res://assets/icons/twitter.png" type="Texture" id=5]
+[ext_resource path="res://assets/icons/kr´haken logo modifikation neu.png" type="Texture" id=6]
+[ext_resource path="res://assets/VFX/Bubble/bubble.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/icons/insta.png" type="Texture" id=8]
+[ext_resource path="res://assets/icons/world.png" type="Texture" id=9]
+[ext_resource path="res://assets/icons/Shipsinkers logo white.png" type="Texture" id=10]
+[ext_resource path="res://src/UI/UI_Scenes/Web Link.gd" type="Script" id=11]
+[ext_resource path="res://src/UI/UI_Scenes/Twitter Link.gd" type="Script" id=12]
+[ext_resource path="res://src/UI/UI_Scenes/Insta Link.gd" type="Script" id=13]
+[ext_resource path="res://src/UI/UI_Scenes/S4G Link.gd" type="Script" id=14]
+[ext_resource path="res://assets/UI/Title/5.png" type="Texture" id=15]
+[ext_resource path="res://assets/UI/Title/2.png" type="Texture" id=16]
+[ext_resource path="res://assets/UI/Title/1.png" type="Texture" id=17]
+[ext_resource path="res://assets/UI/Title/6.png" type="Texture" id=18]
+[ext_resource path="res://assets/UI/Title/7.png" type="Texture" id=19]
+[ext_resource path="res://assets/UI/Title/3.png" type="Texture" id=20]
+[ext_resource path="res://assets/UI/Title/4.png" type="Texture" id=21]
+[ext_resource path="res://Fonts/Feathercut-Regular.ttf" type="DynamicFontData" id=22]
+[ext_resource path="res://Audio/Menu/menu_button_2_wet_fx.wav" type="AudioStream" id=23]
+[ext_resource path="res://Audio/SFX für VFX/Underwater_Pool-Mike_Koenig-355864284.wav" type="AudioStream" id=24]
+[ext_resource path="res://Audio/SFX für VFX/Blop-Mark_DiAngelo-79054334_long.wav" type="AudioStream" id=25]
+[ext_resource path="res://assets/UI/Buttons/exit.png" type="Texture" id=26]
+[ext_resource path="res://Audio/Ambient/Shipwreckers Fight Music V1 (xandro ft. eendeeloops).ogg" type="AudioStream" id=27]
+
+[sub_resource type="DynamicFont" id=1]
+resource_local_to_scene = true
+size = 28
+outline_size = 3
+outline_color = Color( 0.372549, 0.105882, 0.54902, 1 )
+font_data = ExtResource( 22 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 2
+outline_color = Color( 0.372549, 0.105882, 0.54902, 1 )
+font_data = ExtResource( 22 )
+
+[node name="TitleScreen" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Keyart" type="Node2D" parent="."]
+scale = Vector2( 1.00799, 1.01973 )
+
+[node name="mochup_menu" type="Sprite" parent="Keyart"]
+visible = false
+position = Vector2( 963.219, 541.04 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Ebene7" type="Sprite" parent="Keyart"]
+position = Vector2( 951.072, 532 )
+scale = Vector2( 0.499517, 0.5 )
+texture = ExtResource( 19 )
+
+[node name="Bubble" parent="Keyart" instance=ExtResource( 7 )]
+position = Vector2( 682.546, 1074.79 )
+scale = Vector2( 53.83, 53.4232 )
+
+[node name="ColorRect" type="ColorRect" parent="Keyart"]
+margin_left = 336.0
+margin_top = 232.0
+margin_right = 376.0
+margin_bottom = 272.0
+rect_scale = Vector2( 12.8949, 20.2473 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Light2D" type="Light2D" parent="Keyart/ColorRect"]
+visible = false
+position = Vector2( 20.4121, 19.3455 )
+scale = Vector2( 0.0416734, 0.0753412 )
+mode = 2
+
+[node name="Ebene5" type="Sprite" parent="Keyart"]
+position = Vector2( 952.39, 533.474 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 15 )
+
+[node name="Ebene6" type="Sprite" parent="Keyart"]
+position = Vector2( 952, 532 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 18 )
+
+[node name="Light2D" type="Light2D" parent="Keyart/Ebene6"]
+visible = false
+position = Vector2( 0.779175, 2.94751 )
+scale = Vector2( 100.034, 100.244 )
+texture = ExtResource( 18 )
+texture_scale = 0.01
+color = Color( 0.0862745, 0.227451, 0.505882, 1 )
+
+[node name="Ebene4" type="Sprite" parent="Keyart"]
+position = Vector2( 951.166, 532 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 21 )
+
+[node name="Ebene3" type="Sprite" parent="Keyart"]
+position = Vector2( 952, 532 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 20 )
+
+[node name="Ebene2" type="Sprite" parent="Keyart"]
+position = Vector2( 952, 532 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 16 )
+
+[node name="Ebene1" type="Sprite" parent="Keyart"]
+position = Vector2( 952, 532 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 17 )
+
+[node name="Menü" type="Node2D" parent="."]
+
+[node name="kr´haken_LOGO" type="Sprite" parent="Menü"]
+position = Vector2( 1627.41, 171.08 )
+scale = Vector2( 0.260969, 0.260969 )
+texture = ExtResource( 6 )
+
+[node name="Start_Game" parent="Menü" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.499601
+anchor_right = 0.5
+anchor_bottom = 0.499601
+margin_left = 1456.0
+margin_top = 336.0
+margin_right = 1806.0
+margin_bottom = 426.0
+focus_neighbour_top = NodePath("../Quit")
+focus_neighbour_bottom = NodePath("../Settings")
+reference_path = "res://src/Levels/Start room.tscn"
+start_focused = true
+
+[node name="Label" type="Label" parent="Menü/Start_Game"]
+margin_top = 1.99991
+margin_right = 352.0
+margin_bottom = 89.9999
+custom_fonts/font = SubResource( 1 )
+text = "Start"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gallery" parent="Menü" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 1456.0
+margin_top = 448.0
+margin_right = 1806.0
+margin_bottom = 538.0
+focus_neighbour_top = NodePath("../Start_Game")
+focus_neighbour_bottom = NodePath("../Quit")
+reference_path = "res://src/UI/UI_Scenes/CutScene.tscn"
+
+[node name="Label2" type="Label" parent="Menü/Gallery"]
+margin_top = 2.00009
+margin_right = 352.0
+margin_bottom = 90.0001
+custom_fonts/font = SubResource( 1 )
+text = "Gallery"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" parent="Menü" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 1456.0
+margin_top = 560.0
+margin_right = 1806.0
+margin_bottom = 650.0
+focus_neighbour_top = NodePath("../Start_Game")
+focus_neighbour_bottom = NodePath("../Quit")
+reference_path = "res://src/UI/UI_Scenes/Setting_Menu.tscn"
+
+[node name="Label2" type="Label" parent="Menü/Settings"]
+margin_top = 2.00009
+margin_right = 352.0
+margin_bottom = 90.0001
+custom_fonts/font = SubResource( 1 )
+text = "Settings"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits" parent="Menü" instance=ExtResource( 2 )]
+margin_left = 1456.0
+margin_top = 672.0
+margin_right = 1806.0
+margin_bottom = 762.0
+focus_mode = 1
+enabled_focus_mode = 1
+reference_path = "res://src/UI/UI_Scenes/Credits.tscn"
+
+[node name="Label3" type="Label" parent="Menü/Credits"]
+margin_top = 1.0
+margin_right = 352.0
+margin_bottom = 89.0
+custom_fonts/font = SubResource( 1 )
+text = "Credits"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" parent="Menü" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 1821.56
+margin_top = 5.87754
+margin_right = 1913.56
+margin_bottom = 35.8775
+focus_neighbour_top = NodePath("../Settings")
+focus_neighbour_bottom = NodePath("../Start_Game")
+texture_normal = ExtResource( 26 )
+texture_pressed = ExtResource( 26 )
+texture_hover = ExtResource( 26 )
+
+[node name="Coins" type="Label" parent="."]
+anchor_left = -0.00139516
+anchor_top = -0.00249704
+anchor_right = -0.00139516
+anchor_bottom = -0.00249704
+margin_left = 1578.68
+margin_top = 282.697
+margin_right = 1696.68
+margin_bottom = 315.697
+custom_fonts/font = SubResource( 2 )
+text = "Souls: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Footer" type="Node2D" parent="."]
+position = Vector2( -2, 0 )
+
+[node name="website_symbol" type="Sprite" parent="Footer"]
+position = Vector2( 1348.26, 1038.12 )
+scale = Vector2( 0.438702, 0.438702 )
+texture = ExtResource( 9 )
+
+[node name="Website" type="Label" parent="Footer/website_symbol"]
+visible = false
+margin_left = -425.251
+margin_right = -372.251
+margin_bottom = 14.0
+text = "Website"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Web Link" type="LinkButton" parent="Footer"]
+margin_left = 1320.0
+margin_top = 1016.0
+margin_right = 1368.0
+margin_bottom = 1064.0
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Twitter_symbol" type="Sprite" parent="Footer"]
+position = Vector2( 1412.07, 1035.93 )
+scale = Vector2( 0.486043, 0.486043 )
+texture = ExtResource( 5 )
+
+[node name="Twitter" type="Label" parent="Footer/Twitter_symbol"]
+visible = false
+margin_left = -172.242
+margin_right = -128.242
+margin_bottom = 14.0
+text = "Twitter"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Twitter Link" type="LinkButton" parent="Footer"]
+margin_left = 1384.0
+margin_top = 1016.0
+margin_right = 1432.0
+margin_bottom = 1064.0
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="instagram_symbol" type="Sprite" parent="Footer"]
+position = Vector2( 1476.88, 1038.01 )
+scale = Vector2( 0.486411, 0.486411 )
+texture = ExtResource( 8 )
+
+[node name="Instagram" type="Label" parent="Footer/instagram_symbol"]
+visible = false
+margin_left = -394.25
+margin_top = 98.5625
+margin_right = -330.25
+margin_bottom = 112.563
+text = "Instagram"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Insta Link" type="LinkButton" parent="Footer"]
+margin_left = 1448.0
+margin_top = 1016.0
+margin_right = 1496.0
+margin_bottom = 1064.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shipwrackers" type="Sprite" parent="Footer"]
+position = Vector2( 1855.25, 999.194 )
+scale = Vector2( 0.0906335, 0.0875413 )
+texture = ExtResource( 10 )
+
+[node name="S4G_Logo" type="Sprite" parent="Footer"]
+position = Vector2( 1696, 1024 )
+scale = Vector2( 0.11, 0.11544 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="Footer/S4G_Logo"]
+show_behind_parent = true
+margin_left = -800.0
+margin_top = -346.0
+margin_right = -773.0
+margin_bottom = -314.0
+rect_scale = Vector2( 60.35, 21.3301 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S4G Link" type="LinkButton" parent="Footer"]
+margin_left = 1608.0
+margin_top = 984.0
+margin_right = 1787.0
+margin_bottom = 1063.0
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+bus = "Music"
+
+[node name="BubbleSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+volume_db = -20.0
+pitch_scale = 0.97
+autoplay = true
+bus = "SFX"
+
+[node name="BubblePlopp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+volume_db = -20.0
+pitch_scale = 0.75
+bus = "SFX"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
+volume_db = -20.0
+autoplay = true
+bus = "Music"
+[connection signal="pressed" from="Footer/Web Link" to="Footer/Web Link" method="_on_Web_Link_pressed"]
+[connection signal="pressed" from="Footer/Twitter Link" to="Footer/Twitter Link" method="_on_Twitter_Link_pressed"]
+[connection signal="pressed" from="Footer/Insta Link" to="Footer/Insta Link" method="_on_Insta_Link_pressed"]
+[connection signal="pressed" from="Footer/S4G Link" to="Footer/S4G Link" method="_on_S4G_Link_pressed"]

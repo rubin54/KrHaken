@@ -1,0 +1,120 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/UI/HealthUI.gd" type="Script" id=1]
+[ext_resource path="res://src/UI/InGame UI/HeartUIEmpty.png" type="Texture" id=2]
+[ext_resource path="res://src/UI/InGame UI/HeartUIFull.png" type="Texture" id=3]
+[ext_resource path="res://assets/UI/Ingame UI/ui_neu_größer.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/Ingame UI/5.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/Ingame UI/4.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/Ingame UI/3.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/Ingame UI/1.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/Ingame UI/2.png" type="Texture" id=9]
+[ext_resource path="res://assets/Licht assets/rotes licht.png" type="Texture" id=10]
+
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+light_mode = 1
+
+[node name="HealthUI" type="Control"]
+margin_right = 173.0
+margin_bottom = 34.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartUIEmpty" type="TextureRect" parent="."]
+visible = false
+margin_right = 59.0
+margin_bottom = 11.0
+rect_scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartUIFull" type="TextureRect" parent="."]
+visible = false
+margin_right = 45.0
+margin_bottom = 11.0
+rect_scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Spritea" type="Sprite" parent="Node2D"]
+visible = false
+material = SubResource( 1 )
+position = Vector2( 1017.25, 119.716 )
+scale = Vector2( 0.15349, 0.15349 )
+z_index = 1
+texture = ExtResource( 10 )
+
+[node name="Spriteb" type="Sprite" parent="Node2D"]
+visible = false
+material = SubResource( 1 )
+position = Vector2( 1031.54, 41.9334 )
+scale = Vector2( 0.15349, 0.15349 )
+z_index = 1
+texture = ExtResource( 10 )
+
+[node name="Spritec" type="Sprite" parent="Node2D"]
+visible = false
+material = SubResource( 1 )
+position = Vector2( 898.194, 37.9648 )
+scale = Vector2( 0.15349, 0.15349 )
+z_index = 1
+texture = ExtResource( 10 )
+
+[node name="Sprited" type="Sprite" parent="Node2D"]
+visible = false
+material = SubResource( 1 )
+position = Vector2( 906.925, 117.335 )
+scale = Vector2( 0.15349, 0.15349 )
+z_index = 1
+texture = ExtResource( 10 )
+
+[node name="Spritee" type="Sprite" parent="Node2D"]
+visible = false
+material = SubResource( 1 )
+position = Vector2( 961.69, 76.8562 )
+scale = Vector2( 0.15349, 0.15349 )
+z_index = 1
+texture = ExtResource( 10 )
+
+[node name="ui_platzhalter" type="Sprite" parent="."]
+position = Vector2( 960.678, 540.639 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="auge_a" type="Sprite" parent="ui_platzhalter"]
+position = Vector2( 123.295, -847.883 )
+scale = Vector2( 0.555521, 0.547194 )
+texture = ExtResource( 8 )
+
+[node name="auge_b" type="Sprite" parent="ui_platzhalter"]
+position = Vector2( 149.663, -994.501 )
+scale = Vector2( 0.69697, 0.625561 )
+texture = ExtResource( 9 )
+
+[node name="auge_c" type="Sprite" parent="ui_platzhalter"]
+position = Vector2( -145.192, -1005.18 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+
+[node name="auge_d" type="Sprite" parent="ui_platzhalter"]
+position = Vector2( -110.395, -841.654 )
+scale = Vector2( 0.546702, 0.485699 )
+texture = ExtResource( 6 )
+
+[node name="auge_e" type="Sprite" parent="ui_platzhalter"]
+position = Vector2( 1.09766, -937.092 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
