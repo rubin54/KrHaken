@@ -1,6 +1,6 @@
 # KrHaken (Student Project)
 
-Homepage: "LINk"
+Homepage: https://s4g.itch.io/krhaken
 
 # 2D top down action game made with Unity
 "KrHaken" is a 2D top down action game with a freeze & hook mechanic for PC
