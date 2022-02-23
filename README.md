@@ -1,5 +1,5 @@
 # KrHaken (Student Project)
-
+![](https://github.com/rubin54/KrHaken/blob/main/game/assets/UI/Title/kr%C2%B4haken_LOGO.png)
 Homepage: https://s4g.itch.io/krhaken
 
 # 2D top down action game made with Unity
