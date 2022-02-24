@@ -1,4 +1,4 @@
-# KrHaken (Student Project)
+# KrHaken (Student Project @S4G)
 ![](https://github.com/rubin54/KrHaken/blob/main/game/assets/UI/Title/kr%C2%B4haken_LOGO.png)
 Homepage: https://s4g.itch.io/krhaken
 
