@@ -1,6 +1,6 @@
 # KrHaken (Student Project @S4G)
-![](https://github.com/rubin54/KrHaken/blob/main/game/assets/UI/Title/kr%C2%B4haken_LOGO.png)
-Homepage: https://s4g.itch.io/krhaken
+[![tag](https://github.com/rubin54/KrHaken/blob/main/game/assets/UI/Title/kr%C2%B4haken_LOGO.png)](https://s4g.itch.io/krhaken)
+Homepage: https://krhaken.school4games.net
 
 # 2D top down action game made with Unity
 "KrHaken" is a 2D top down action game with a freeze & hook mechanic for PC
@@ -21,8 +21,4 @@ Homepage: https://s4g.itch.io/krhaken
 - Implemented UI (only Code)
 
 
-PICTURE AND BUILD download
-
-# Documentation
-
-- TDD
+PICTURE/GIF AND BUILD download COMING SOON
