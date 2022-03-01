@@ -4,7 +4,7 @@ Art Made By [Aina Theede](https://www.artstation.com/ainmalig)
 
 Homepage: https://krhaken.school4games.net
 
-# 2D top down action game made with Unity
+# 2D Top Down Action Game Made In Unity
 "KrHaken" is a 2D top down action game with a freeze & hook mechanic for PC
 
 # Gameplay 
