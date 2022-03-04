@@ -12,7 +12,7 @@ Homepage: https://krhaken.school4games.net
 - Rogue Light elements
 
 # Roles
-- Gameplay
+- Gameplay Programmer
 
 # Engine / Languages
 - Godot, GDScript
@@ -22,5 +22,6 @@ Homepage: https://krhaken.school4games.net
 - Implemented Sound/Music
 - Implemented UI (only Code)
 
+# Gameplay Video
 
-PICTURE/GIF AND BUILD download COMING SOON
+[![Youtube Video](https://img.youtube.com/vi/KjWven092pI/0.jpg)](https://youtu.be/KjWven092pI)
